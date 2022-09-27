@@ -1,0 +1,19 @@
+.footer-container {
+  width: 100%;
+  height: "auto";
+  background-color: #375d75;
+  color: #dbf1ff;
+  padding-bottom: 2%;
+}
+.footer-inner-container {
+  margin-top: 5%;
+  display: flex;
+  padding-top: 5%;
+  margin-left: 20%;
+}
+
+.footer-text {
+  line-height: 3rem;
+
+  text-align: left;
+}
