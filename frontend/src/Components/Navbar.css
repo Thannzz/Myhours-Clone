@@ -1,0 +1,26 @@
+.container {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 0px 80px 0px 80px;
+    border: 0px solid blue;
+    margin-top: -8%;
+  }
+  .rightside {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: #3b8fc2;
+  }
+  .rightside:hover {
+    cursor: pointer;
+  }
+  .navbtn:hover {
+    background-color: #000080;
+  }
+  
