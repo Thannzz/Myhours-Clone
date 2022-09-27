@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const connect = () => {
-  return mongoose.connect("mongodb://127.0.0.1:27017/psc");
+  return mongoose.connect("mongodb+srv://myhours:myhours@cluster0.oet0qta.mongodb.net/?retryWrites=true&w=majority");
 };
 
 module.exports = connect;
