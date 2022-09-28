@@ -6,6 +6,7 @@ const projectRouter = require("./features/project/project.router");
 
 const companyRouter = require("./features/company/company.router");
 
+const taskRouter = require("./features/tasks/task.router");
 
 // const cartRouter = require("./features/cart/cart.router");
 const cors = require("cors");
@@ -23,6 +24,7 @@ app.get('/' , (req , res) => {
 })
 app.use("/company", companyRouter);
 app.use("/projects", projectRouter);
+app.use('/tasks' , taskRouter)
 // app.use("/products", productRouter);
 // app.use("/carts", cartRouter);
 

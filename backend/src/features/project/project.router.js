@@ -39,16 +39,5 @@ app.post("/new", async (req, res) => {
   }
 });
 
-//{<--Get req for a movie search-->}
-// app.get("/search", async (req, res) => {
-//   const { q } = req.query;
-//   console.log(q);
-//   try {
-//     let mov = await Project.find({ projectname: { $regex: q } });
-//     res.send(mov);
-//   } catch (e) {
-//     console.log(e.message);
-//   }
-// });
 
 module.exports = app;

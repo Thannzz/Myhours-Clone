@@ -10,7 +10,12 @@ const taskSchema = new mongoose.Schema({
   },
   description:{
     type:String
-  }
+  },
+  projectid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "project",
+    required: true,
+  },
 });
 
 const Task = mongoose.model("task", taskSchema);
