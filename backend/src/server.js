@@ -17,12 +17,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/projects", projectRouter);
 
 app.get('/' , (req , res) => {
   res.send("<h1>LIFE IS AWESOME...</h1>")
 })
 app.use("/company", companyRouter);
+app.use("/projects", projectRouter);
 // app.use("/products", productRouter);
 // app.use("/carts", cartRouter);
 
