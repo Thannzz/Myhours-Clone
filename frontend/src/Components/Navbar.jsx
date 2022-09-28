@@ -1,5 +1,6 @@
 
 import { Box, Image } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 
 import "./Navbar.css";
@@ -8,10 +9,12 @@ function Navbar() {
     <Box
       className="container"
       boxShadow="md"
+    
       pos={"fixed"}
       w="100%"
-      zIndex="200"
+    
       bg="white"
+     
     >
       <Box>
         
@@ -36,7 +39,7 @@ function Navbar() {
           Support
         </Box>
         <Box>
-          Sign in
+         <Link to="/SignIn">Sign in</Link> 
         </Box>
         <Box
           className="navbtn"
@@ -47,7 +50,7 @@ function Navbar() {
           px={4}
           py={2}
         >
-          Get My Hours Free
+        <Link to="/SignUp">Get My Hours Free</Link> 
         </Box>
       </Box>
     </Box>

@@ -1,8 +1,11 @@
 import { Box, Text, Image, SimpleGrid, Heading } from "@chakra-ui/react";
 import Footer from "./Footer";
 import "./Home.css";
+import Navbar from "./Navbar";
 function Home() {
   return (
+    <>
+    <Navbar/>
     <Box as="main" mt="130px">
       <Box px="60px" border="3px" borderColor="blue">
         <Text
@@ -389,6 +392,7 @@ function Home() {
       </Box>
       <Footer/>
     </Box>
+    </>
   );
 }
 export default Home;
