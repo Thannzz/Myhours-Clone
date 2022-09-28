@@ -6,9 +6,8 @@ import Dashboard from './Components/Dashboard';
 function App() {
   return (
     <div className="App">
-     {/* <Navbar/>
-     <Home/> */}
-     <Dashboard/>
+     <Navbar/>
+     <Home/>
     </div>
   );
 }
