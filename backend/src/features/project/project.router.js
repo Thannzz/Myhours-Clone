@@ -1,12 +1,15 @@
 const express = require("express");
 const Project = require("./project.model");
 const app = express.Router();
+const projectMiddleware = require("../../middleware/projectMiddleware");
 
+app.use(projectMiddleware);
 //{ <--Getting  all the projects-->}
 app.get("/", async (req, res) => {
+  console.log("companyID", req.companyID);
   try {
-    let proj = await Project.find();
-    console.log("proj:", proj);
+    let proj = await Project.find({ companyID: req.companyID });
+    // console.log("proj:", proj);
     res.send(proj);
   } catch (error) {
     console.log("error:", error);
@@ -16,10 +19,8 @@ app.get("/", async (req, res) => {
 
 //{<-- Firing post req to create a new Proje-->}
 app.post("/new", async (req, res) => {
-  let incoming = req.headers.token;
-
-  let [projID, email, password] = incoming.split(":");
-  // console.log(projID,email,password)
+  let companyID = req.companyID;
+  console.log(companyID);
   let { projectname, clientName } = req.body;
 
   try {
@@ -29,7 +30,7 @@ app.post("/new", async (req, res) => {
     }
     let newProject = await Project.create({
       ...req.body,
-      projectID: projID,
+      companyID: companyID,
     });
 
     return res.send(newProject);
@@ -39,15 +40,15 @@ app.post("/new", async (req, res) => {
 });
 
 //{<--Get req for a movie search-->}
-app.get("/search", async (req, res) => {
-  const { q } = req.query;
-  console.log(q);
-  try {
-    let mov = await Project.find({ projectname: { $regex: q } });
-    res.send(mov);
-  } catch (e) {
-    console.log(e.message);
-  }
-});
+// app.get("/search", async (req, res) => {
+//   const { q } = req.query;
+//   console.log(q);
+//   try {
+//     let mov = await Project.find({ projectname: { $regex: q } });
+//     res.send(mov);
+//   } catch (e) {
+//     console.log(e.message);
+//   }
+// });
 
 module.exports = app;

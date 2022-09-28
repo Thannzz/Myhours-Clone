@@ -9,7 +9,7 @@ const projectSchema = new mongoose.Schema({
     ref: "user",
     required: true,
   },
-  billing: { type: Boolean },
+  billing: { type: Boolean, required: true },
 });
 
 const Project = mongoose.model("project", projectSchema);
