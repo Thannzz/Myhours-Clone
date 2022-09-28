@@ -1,0 +1,84 @@
+.dashboard{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: sans-serif;
+    /* background-color: blue; */
+}
+
+
+/* Sidebar css  start */
+
+.sidebar{
+    /* border: 1px solid orange; */
+    width: 15.50%;
+    height: 695px;
+    border-left: 5px solid green;
+    border-right: 0.50px solid gray;
+    background-color: #f8f9fa;
+
+}
+
+.box1{
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 68.16px;
+    display: flex;
+    align-items: center;
+
+}
+.logo{
+    width: 60%;
+    margin-left: 25px;
+}
+
+.box2{
+    /* border: 1px solid green; */
+    width: 100%;
+    height: 330px;
+}
+
+.items{
+    /* border: 1px solid blueviolet; */
+    width: 100%;
+    height: 40.5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    
+    
+    
+}
+.box2>div:hover{
+       background-color: rgba(185, 179, 179, 0.37);
+
+}
+.box4>div:hover{
+       background-color: rgba(185, 179, 179, 0.37);
+
+}
+
+
+
+
+
+
+.title{
+    /* border: 1px solid brown; */
+    margin-left: 10px;
+  
+}
+
+.box3{
+    /* border: 1px solid teal; */
+    width: 100%;
+    height:120px ;
+    background-color: #dceefa;
+}
+
+.box4{
+    /* border: 1px solid blue; */
+    width: 100%;
+    height: auto;
+}
