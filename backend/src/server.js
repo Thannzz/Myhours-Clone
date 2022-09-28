@@ -1,7 +1,12 @@
 const express = require("express");
 const dbConnect = require("./config/db");
+
+
+const projectRouter = require("./features/project/project.router");
+
 const companyRouter = require("./features/company/company.router");
-// const productRouter = require("./features/product/product.router");
+
+
 // const cartRouter = require("./features/cart/cart.router");
 const cors = require("cors");
 
@@ -11,6 +16,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+app.use("/projects", projectRouter);
+
 app.get('/' , (req , res) => {
   res.send("<h1>LIFE IS AWESOME...</h1>")
 })
