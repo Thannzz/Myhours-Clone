@@ -1,7 +1,12 @@
 const express = require("express");
 const dbConnect = require("./config/db");
-const userRouter = require("./features/user/user.router");
+
+
 const projectRouter = require("./features/project/project.router");
+
+const companyRouter = require("./features/company/company.router");
+
+
 // const cartRouter = require("./features/cart/cart.router");
 const cors = require("cors");
 
@@ -11,11 +16,14 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.get("/", (req, res) => {
-  res.send("<h1>LIFE IS AWESOME...</h1>");
-});
-app.use("/users", userRouter);
+
 app.use("/projects", projectRouter);
+
+app.get('/' , (req , res) => {
+  res.send("<h1>LIFE IS AWESOME...</h1>")
+})
+app.use("/company", companyRouter);
+// app.use("/products", productRouter);
 // app.use("/carts", cartRouter);
 
 app.listen(PORT, async () => {
