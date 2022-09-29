@@ -41,8 +41,6 @@ app.post("/new", async (req, res) => {
   }
 });
 
-
-
 //{<--Get req for a movie search-->}
 app.get("/search", async (req, res) => {
   const { q } = req.query;
@@ -70,7 +68,6 @@ app.delete("/:id", async (req, res) => {
       }
     })
 
-
     .catch((err) => {
       console.error(err);
       res.status(500).send("Error: " + err);
@@ -93,13 +90,3 @@ app.patch("/:id", async (req, res) => {
   }
 });
 module.exports = app;
-
-
-let shcema = {
-      name: string,
-      client: string,
-      hours: number,
-      Bamount: number,
-      bSpent: number,
-      created: date,
-    }
