@@ -99,6 +99,8 @@
 /* Track Css start  */
 
 .track{
+    border: 1px solid sandybrown;
+    width: 84.50%;
 
 }
 
@@ -122,10 +124,13 @@
 
 
 .track-dates{
-    width: 30%;
-    border: 1px solid orangered;
+    width: 359px;
+    height: 35.75px;
+    border: 0.50px solid gray;
+    border-radius: 5px;
 }
 .track-user{
-    width: 25%;
+    width: 270px;
+    height: 35.75px;
     border: 1px solid green;
 }
