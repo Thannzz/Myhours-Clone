@@ -63,4 +63,10 @@ app.delete('/:id' , async (req , res) => {
     }
 })
 
+app.get('/team' , (req , res) => {
+    Provide.find({},{teamMember:1})
+})
+
+
+
 module.exports = app;
