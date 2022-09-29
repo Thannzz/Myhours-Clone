@@ -1,5 +1,5 @@
 const express = require("express");
-const Task = require('./task.model');
+const Task = require('./team.model');
 const app = express.Router();
 const taskMiddleware = require('../../middleware/taskMiddleware');
 
@@ -62,11 +62,5 @@ app.delete('/:id' , async (req , res) => {
         res.status(500).send(error.message);
     }
 })
-
-app.get('/team' , (req , res) => {
-    Provide.find({},{teamMember:1})
-})
-
-
 
 module.exports = app;
