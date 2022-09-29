@@ -41,6 +41,8 @@ app.post("/new", async (req, res) => {
   }
 });
 
+
+
 //{<--Get req for a movie search-->}
 app.get("/search", async (req, res) => {
   const { q } = req.query;
@@ -67,6 +69,7 @@ app.delete("/:id", async (req, res) => {
         res.status(200).send(id + " was deleted.");
       }
     })
+
 
     .catch((err) => {
       console.error(err);

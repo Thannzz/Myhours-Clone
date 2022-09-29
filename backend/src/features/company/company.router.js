@@ -6,7 +6,7 @@ const app = express.Router();
 // <-----Getting all the companies------>
 app.get('/' , async  (req , res) => {
   try {
-    let c = await Company.find();
+    let c = await Company.find( {} , {_id:0 , password:0});
     // console.log('u:', u)
     res.send(c)
     
