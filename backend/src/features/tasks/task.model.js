@@ -9,7 +9,8 @@ const taskSchema = new mongoose.Schema({
     required: true 
   },
   assignedTo:{
-    type:String
+    type:String , 
+    required:true
   },
   description:{
     type:String
@@ -19,13 +20,16 @@ const taskSchema = new mongoose.Schema({
     ref: "project",
     required: true,
   },
+  labourRate:{
+    type:Number , 
+    required:true,
+    min:0 
+  },
+  budget:{
+    type:Number , 
+    required:true,
+    min:0
+  }
 });
 const Task = mongoose.model("task", taskSchema);
 module.exports = Task;
-
-
-// {
-//   assignedTo:{
-//     type:
-//   }
-// }

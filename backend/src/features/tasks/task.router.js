@@ -2,6 +2,7 @@ const express = require("express");
 const Task = require('./task.model');
 const app = express.Router();
 const taskMiddleware = require('../../middleware/taskMiddleware');
+const Project = require("../project/project.model");
 
 app.use(taskMiddleware);
 // <------- Getting  all thetasks ------->
@@ -63,8 +64,20 @@ app.delete('/:id' , async (req , res) => {
     }
 })
 
-app.get('/team' , (req , res) => {
-    Provide.find({},{teamMember:1})
+
+// <---  GET request for teamMembers only....   --->
+app.get('/team' , async (req , res) => {
+    // console.log('req.projectid:', r);
+    //     res.send('team is workin....');
+
+    let id  = req.projectid;
+    try {
+        const teamMembers = await Project.findById(id , {_id:0 , teamMembers:1}) ;
+        console.log('teamMembers:', teamMembers)
+        res.send(teamMembers);
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
 })
 
 
