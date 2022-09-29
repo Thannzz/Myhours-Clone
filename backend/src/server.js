@@ -24,8 +24,6 @@ app.get('/' , (req , res) => {
 app.use("/company", companyRouter);
 app.use("/projects", projectRouter);
 app.use('/tasks' , taskRouter)
-// app.use("/products", productRouter);
-// app.use("/carts", cartRouter);
 
 app.listen(PORT, async () => {
   await dbConnect();

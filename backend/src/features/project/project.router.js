@@ -17,6 +17,9 @@ app.get("/", async (req, res) => {
   }
 });
 
+//{ <--Getting  all the projects related to clients-->}
+
+
 //{<-- Firing post req to create a new Proje-->}
 app.post("/new", async (req, res) => {
   let companyID = req.companyID;
