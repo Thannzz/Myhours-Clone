@@ -6,7 +6,7 @@ const projectMiddleware = require("../../middleware/projectMiddleware");
 app.use(projectMiddleware);
 //{ <--Getting  all the projects-->}
 app.get("/", async (req, res) => {
-  console.log("companyID", req.companyID);
+  // console.log("companyID", req.companyID);
   try {
     let proj = await Project.find({ companyID: req.companyID });
     // console.log("proj:", proj);
@@ -20,14 +20,16 @@ app.get("/", async (req, res) => {
 //{<-- Firing post req to create a new Proje-->}
 app.post("/new", async (req, res) => {
   let companyID = req.companyID;
-  console.log(companyID);
+  // console.log(companyID);
   let { projectname, clientName } = req.body;
 
   try {
     let proj = await Project.findOne({ projectname, clientName });
+
     if (proj) {
       return res.status(404).send("This Project already existing");
     }
+
     let newProject = await Project.create({
       ...req.body,
       companyID: companyID,
@@ -40,15 +42,51 @@ app.post("/new", async (req, res) => {
 });
 
 //{<--Get req for a movie search-->}
-// app.get("/search", async (req, res) => {
-//   const { q } = req.query;
-//   console.log(q);
-//   try {
-//     let mov = await Project.find({ projectname: { $regex: q } });
-//     res.send(mov);
-//   } catch (e) {
-//     console.log(e.message);
-//   }
-// });
+app.get("/search", async (req, res) => {
+  const { q } = req.query;
 
+  try {
+    let items = await Project.find({
+      $or: [{ projectname: { $regex: q } }, { clientName: { $regex: q } }],
+    });
+    res.send(items);
+  } catch (e) {
+    console.log(e.message);
+  }
+});
+
+//{<--Firing Delete req for an projectid-->}
+app.delete("/:id", async (req, res) => {
+  let { id } = req.params;
+
+  await Project.findOneAndRemove({ id: id })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(id + " was not found");
+      } else {
+        res.status(200).send(id + " was deleted.");
+      }
+    })
+
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+//{<-- Firing Patch req for projectID -->}
+app.patch("/:id", async (req, res) => {
+  let [empty, id] = req.params.id.split(":");
+
+  let updatedData = req.body;
+
+  try {
+    let updatedProject = await Project.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+    res.send(updatedProject);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
 module.exports = app;
