@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -21,50 +21,60 @@ import {
 import { AddIcon, DownloadIcon, HamburgerIcon, CopyIcon } from "@chakra-ui/icons";
 import inbox from "./Assets/inbox.png";
 import pen from "./Assets/pen.png";
-import box from "./Assets/cardboard-box.png"
+import box from "./Assets/cardboard-box.png";
+import {axios} from "axios"
+
+const getProjects = async() => {
+  let res = await axios.get("http://localhost:8080/projects");
+  console.log(res);      
+  return res.data;
+}
 
 export default function Projects() {
+  const [ projects, setProjects ] = useState([]);
+  useEffect(()=>{
+    getProjects().then((res)=> setProjects(res));
+  })
+  console.log(projects);
 
-  
-
-  let projects = [
-    {
-      name: "test1",
-      client: "testClient1",
-      hours: 12,
-      Bamount: 450,
-      bSpent: 60,
-      created: "28-09-2022",
-      status: "Active",
-    },
-    {
-      name: "test2",
-      client: "testClient2",
-      hours: 12,
-      Bamount: 450,
-      bSpent: 60,
-      created: "28-09-2022",
-      status: "Active",
-    },
-    {
-      name: "test3",
-      client: "testClient3",
-      hours: 12,
-      Bamount: 450,
-      bSpent: 60,
-      created: "28-09-2022",
-      status: "Active",
-    },
-    {
-      name: "test4",
-      client: "testClient4",
-      hours: 12,
-      Bamount: 450,
-      bSpent: 60,
-      created: "28-09-2022",
-      status: "Active",
-    },
-  ];
+  // let Projects = [
+  //   {
+  //     name: "test1",
+  //     client: "testClient1",
+  //     hours: 12,
+  //     Bamount: 450,
+  //     bSpent: 60,
+  //     created: "28-09-2022",
+  //     status: "Active",
+  //   },
+  //   {
+  //     name: "test2",
+  //     client: "testClient2",
+  //     hours: 12,
+  //     Bamount: 450,
+  //     bSpent: 60,
+  //     created: "28-09-2022",
+  //     status: "Active",
+  //   },
+  //   {
+  //     name: "test3",
+  //     client: "testClient3",
+  //     hours: 12,
+  //     Bamount: 450,
+  //     bSpent: 60,
+  //     created: "28-09-2022",
+  //     status: "Active",
+  //   },
+  //   {
+  //     name: "test4",
+  //     client: "testClient4",
+  //     hours: 12,
+  //     Bamount: 450,
+  //     bSpent: 60,
+  //     created: "28-09-2022",
+  //     status: "Active",
+  //   },
+  // ];
 
   return (
     <Box m={"30px"}>
