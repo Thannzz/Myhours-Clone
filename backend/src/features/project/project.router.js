@@ -52,13 +52,3 @@ app.post("/new", async (req, res) => {
 // });
 
 module.exports = app;
-
-
-let shcema = {
-      name: string,
-      client: string,
-      hours: number,
-      Bamount: number,
-      bSpent: number,
-      created: date,
-    }
