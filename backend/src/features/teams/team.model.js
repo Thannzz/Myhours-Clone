@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-// Todo:-
-// rate per houre
-// budgets in hours
 
 const taskSchema = new mongoose.Schema({
   task: {
@@ -20,12 +17,6 @@ const taskSchema = new mongoose.Schema({
     required: true,
   },
 });
+
 const Task = mongoose.model("task", taskSchema);
 module.exports = Task;
-
-
-// {
-//   assignedTo:{
-//     type:
-//   }
-// }
