@@ -1,8 +1,32 @@
-import React from 'react'
-import "../styles/Dashboard.css"
-import { Button, WrapItem } from "@chakra-ui/react";
+import React from "react";
+import "../styles/Dashboard.css";
+import { Box, Button, WrapItem } from "@chakra-ui/react";
+import { Divider } from "@chakra-ui/react";
+import { useState } from "react";
+import HoursForm from "./HoursForm";
 
 export default function Track() {
+  const [mon,setMon] = useState("0:00")
+  const [tue, setTue] = useState("0:00");
+  const [wed, setWed] = useState("0:00");
+  const [thu, setThu] = useState("0:00");
+  const [fri, setFri] = useState("0:00");
+  const [totalBudget,setTotalBudget] = useState(null)
+  const budgetDates = [
+    "Mon, 26 Sep",
+    "Tue, 27 Sep",
+    "Wed, 28 Sep",
+    "Thu, 29 Sep",
+    "Fri, 30 Sep",
+  ];
+  const budgetDatesValues = [
+  mon,
+  tue,
+  wed,
+  thu,
+  fri,
+  ];
+
   return (
     <div className="track">
       <h2 className="track-title">Weekly timesheet</h2>
@@ -19,7 +43,7 @@ export default function Track() {
               borderBottomLeftRadius: "5px",
             }}
           >
-            <i style={{}} class="bi-arrow-left"></i>
+            <i class="bi-arrow-left"></i>
           </Button>
 
           <i
@@ -42,15 +66,17 @@ export default function Track() {
               borderBottomRightRadius: "5px",
             }}
           >
-            <i style={{}} class="bi-arrow-right"></i>
+            <i class="bi-arrow-right"></i>
           </Button>
         </div>
 
-        <div style={{ marginLeft: "2rem" }} className="track-user">
-          <Button style={{ width: "30px", height: "100%" }}>
-            {" "}
-            <i style={{}} class="bi-arrow-left"></i>
-          </Button>
+        <div className="track-user">
+          <i
+            style={{ fontSize: "23px", marginLeft: "5px" }}
+            class="bi-person"
+          ></i>
+          <div style={{ width: "82%" }}></div>
+          <i style={{ fontSize: "15px" }} class="bi-caret-right-fill"></i>
         </div>
 
         <Button style={{ backgroundColor: "#dceefa", marginLeft: "18rem" }}>
@@ -62,6 +88,46 @@ export default function Track() {
           <i class="bi-gear"></i>
         </Button>
       </section>
+      {/* <br style={{border:"1px solid gray"}} /> */}
+      <Divider
+        borderColor="gray"
+        width="97%"
+        marginTop="15px"
+        marginLeft="30px"
+      />
+      <section className="client-projects">
+        <div className="budget-title">
+          <div className="budget-dates">
+            {budgetDates.map((dates, ind) => (
+              <span key={ind}>{dates}</span>
+            ))}
+          </div>
+          <span style={{ fontSize: "20px" }}>Total Budget</span>
+        </div>
+        <div className="budget-values">
+          <span style={{ fontSize: "20px" }}>Client & Project</span>
+          <span style={{ fontSize: "20px", marginLeft: "10rem" }}>Task</span>
+          <div className="budget-dates-values">
+            {budgetDatesValues.map((dates, ind) => (
+              <span key={ind}>{dates}</span>
+            ))}
+          </div>
+          <span
+            style={{ fontSize: "22px", marginLeft: "25px", fontWeight: "600" }}
+          >
+            {totalBudget || "00:00"}
+          </span>
+        </div>
+      </section>
+      <Divider
+        borderColor="gray"
+        width="97%"
+        marginTop="15px"
+        marginLeft="30px"
+      />
+      <Box w="97%" ml="30px" mt="5px">
+        <HoursForm totalBudget={totalBudget} />
+      </Box>
     </div>
   );
 }

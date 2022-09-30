@@ -121,12 +121,12 @@ export default function Sidebar() {
                 {" "}
                 <i
                   style={{ marginLeft: "20px", fontSize: "18px" }}
-                  class={` bi-${item.icon}`}
+                  className={` bi-${item.icon}`}
                 ></i>
                 <span className="title">{item.title}</span>{" "}
                 <i
                   style={{ marginLeft: `${item.marginLeft}`, fontSize: "15px" }}
-                  class={`bi-${item.rIcon}`}
+                  className={`bi-${item.rIcon}`}
                 ></i>
               </Link>
             </div>
