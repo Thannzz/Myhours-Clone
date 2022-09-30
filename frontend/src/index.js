@@ -7,21 +7,27 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/index";
 import { ChakraProvider } from "@chakra-ui/react";
-import AppContextProvider from "./context/Appcontext";
+import AuthContextProvider from "./Components/AuthContext"
+
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+
     <Provider store={store}>
-      <ChakraProvider>
-        <AppContextProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </AppContextProvider>
+    <ChakraProvider>
+      <BrowserRouter>
+      <AuthContextProvider>
+        <App />
+        </AuthContextProvider>
+      </BrowserRouter>
       </ChakraProvider>
-    </Provider>
-  </React.StrictMode>
+      </Provider>
+      
+
+     
+   
+  
 );
 
 // If you want to start measuring performance in your app, pass a function
