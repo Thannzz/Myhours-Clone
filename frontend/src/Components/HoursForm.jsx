@@ -1,22 +1,33 @@
 import { Box, Divider, Input, Text } from '@chakra-ui/react';
 import React from 'react'
+import { Select } from "@chakra-ui/react";
+import axios from "axios"
+
+const getProjectsName = (token) => {
+  return axios.get(`http://localhost:8080/projects`, {
+    headers: { token: token },
+  });
+};
 
 
 export default function HoursForm({ totalBudget }) {
+
   return (
     <div>
-      <Box
-        mt={2}
-        display="flex"
-        fontFamily="sans-serif"
-        width="99.50%"
-      >
-        <Input
+      <Box mt={2} display="flex" fontFamily="sans-serif" width="99.50%">
+        {/* <Input
           htmlSize={4}
           width="26%"
           h="35px"
           placeholder="Select/create a project..."
-        />
+        /> */}
+
+        <Select width="26%" h="35px" placeholder="Select/create a project...">
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+          <option value="option3">Option 3</option>
+        </Select>
+
         <Input
           htmlSize={4}
           width="15%"
