@@ -5,7 +5,12 @@ import React from 'react'
 export default function HoursForm({ totalBudget }) {
   return (
     <div>
-      <Box mt={2} display="flex" fontFamily="sans-serif">
+      <Box
+        mt={2}
+        display="flex"
+        fontFamily="sans-serif"
+        width="99.50%"
+      >
         <Input
           htmlSize={4}
           width="26%"
@@ -20,7 +25,6 @@ export default function HoursForm({ totalBudget }) {
           placeholder="Select/create a..."
         />
         <Input htmlSize={4} width="8%" ml="13px" h="35px" placeholder="hour" />
-     
 
         <Input htmlSize={4} width="8%" ml="13px" h="35px" placeholder="hour" />
         <Input htmlSize={4} width="8%" ml="8px" h="35px" placeholder="hour" />
@@ -30,7 +34,7 @@ export default function HoursForm({ totalBudget }) {
           {totalBudget || "00:00"}
         </Text>
       </Box>
-      <Divider borderColor="gray" mt={2} />
+      <Divider borderColor="gray" mt={2} width="99.50%" />
     </div>
   );
 }

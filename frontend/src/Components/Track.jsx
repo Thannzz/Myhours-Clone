@@ -88,10 +88,9 @@ export default function Track() {
           <i class="bi-gear"></i>
         </Button>
       </section>
-      {/* <br style={{border:"1px solid gray"}} /> */}
       <Divider
         borderColor="gray"
-        width="97%"
+        width="96.40%"
         marginTop="15px"
         marginLeft="30px"
       />
@@ -121,7 +120,7 @@ export default function Track() {
       </section>
       <Divider
         borderColor="gray"
-        width="97%"
+        width="96.40%"
         marginTop="15px"
         marginLeft="30px"
       />
