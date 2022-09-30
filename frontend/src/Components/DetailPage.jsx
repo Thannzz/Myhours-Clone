@@ -14,31 +14,43 @@ import {
 import React from "react";
 import { useState } from "react";
 import { useContext } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { SignUp } from "./auth/auth.action";
 import { AuthContext } from "./AuthContext";
 
 function DetailPage() {
   const maindata = useContext(AuthContext);
+  const dispatch = useDispatch();
   console.log(maindata);
   const [data, setData] = useState({});
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
+    const { name, value, type } = e.target;
+    console.log(type, 11);
+
+    const val = (type === 'number') ? +value : value;
+    setData({...data,[name]:val})
+  
+      // setData({
+      //   ...data,
+      //   [name]: value,
+      // });
+    
   };
 
   const handleClick = () => {
     maindata.isAuthData = {
       ...maindata.isAuthData,
 
-      company_name: data.companyName,
-      employee: data.companySize,
+      companyName: data.companyName,
+      companySize: data.companySize,
       country: data.country,
-      number: data.mobileNumber,
+      mobileNumber: data.mobileNumber,
     };
     // console.log(maindata.isAuthData);
+    dispatch(SignUp(maindata.isAuthData));
+       
   };
 
   return (
@@ -69,6 +81,7 @@ function DetailPage() {
             onChange={handleChange}
             name="country"
           >
+            <option>Select</option>
             <option value="India">India</option>
             <option value="USA">USA</option>
             <option value="China">China</option>
@@ -114,3 +127,25 @@ export default DetailPage;
 // country:{type:String ,required:true },
 // companySize:{type:Number , required:true},
 // mobileNumber:{type:Number}
+
+// company_name
+// :
+// "dfvdfv"
+// country
+// :
+// "USA"
+// email
+// :
+// "vcfv"
+// employee
+// :
+// "5"
+// name
+// :
+// "fvdf"
+// number
+// :
+// "42421"
+// password
+// :
+// "fvfv"
