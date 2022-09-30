@@ -2,12 +2,14 @@ const Company = require("../features/company/company.model");
 
 const projectMiddleware = async (req, res, next) => {
   // console.log('req.headers:', req.headers)
+  console.log("headers", req.headers);
   let token = req.headers.token;
+  // console.log("token", token)
   let [id, email, password] = token.split(":");
   //   console.log("id", id);
 
   let company = await Company.findById(id);
-//   console.log("comapny", company);
+  //   console.log("comapny", company);
   if (company.email == email && company.password == password) {
     req.companyID = id;
     next();
