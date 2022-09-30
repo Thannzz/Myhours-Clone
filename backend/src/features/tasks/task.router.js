@@ -10,7 +10,7 @@ app.get('/' , async (req  ,res) => {
     console.log('req.projectid:', req.projectid);
     try {
         let task = await Task.find({ projectid: req.projectid })
-        // .populate("projectid");
+        .populate("projectid");
             res.send(task);   
     } catch (error) {
     res.status(500).send(error.message);

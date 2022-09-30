@@ -25,7 +25,8 @@ app.get("/", async (req, res) => {
     }else{
       try {
         let proj = await Project
-        .find({ companyID: req.companyID });
+        .find({ companyID: req.companyID })
+        .populate("companyID");
         // console.log("proj:", proj);
         res.send(proj);
       } catch (error) {
