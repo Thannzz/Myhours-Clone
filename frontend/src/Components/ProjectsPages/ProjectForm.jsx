@@ -9,12 +9,52 @@ import {
   FormLabel,
   Button,
 } from "@chakra-ui/react";
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 function ProjectForm() {
+  const initialProject = {
+    projectname: "",
+    clientName: "",
+    description: '',
+    billing: false,
+    hours: 0,
+    billingAmount:0,
+    budgetSpent: 0,
+    createdON: "",
+    status: true,
+    teamMembers: [],
+  }
+  const [project, setProject] = useState(initialProject);
+  const [ team, setteam] = useState("");
     const onChange = (e)=>{
+      const { name:key, value } = e.target;
+      setProject({
+        ...initialProject,
+        [key]:value,
+      })
+    };
+    const setTeam = (e)=>{
+      setteam(e.target.value);
+    };
+    const setBilling = (e)=>{
+      setProject({
+        ...initialProject,
+        billing: e.target.value === "2"? true : false,
+      })
+    };
 
+    const submit = ()=>{
+      setProject({
+        ...initialProject,
+        teamMembers: team.split(", ")
+      })
+      let res = axios.post("http://localhost:8080/projects/new",{ body: project, headers :{
+        token: "6333e76d834c4636928012c6:singla@gmail.com :23104"
+      }});
+      console.log(res.data);
     }
+
   return (
     <Box w="40%" m={"auto"} mb="100px">
       <Text mb="20px" fontSize="5xl">
@@ -23,24 +63,24 @@ function ProjectForm() {
       <Stack gap={"20px"}>
         <Box>
           <FormLabel>Project Name</FormLabel>
-          <Input name="projectname" placeholder="Project Name" />
+          <Input name="projectname" placeholder="Project Name" onChange={onChange} />
         </Box>
         <Box>
           <FormLabel>Client</FormLabel>
-          <Input name="clientName" placeholder="Client" />
+          <Input name="clientName" placeholder="Client" onChange={onChange} />
         </Box>
         <Box>
           <FormLabel>Team members</FormLabel>
-          <Input name="team" placeholder="add team members i.e.: One, Two, Three..." />
+          <Input placeholder="add team members i.e.: One, Two, Three..." onChange={setTeam} />
         </Box>
         <Box>
           <FormLabel>Description</FormLabel>
-          <Textarea name="discription" placeholder="Description..." />
+          <Textarea name="discription" placeholder="Description..." onChange={onChange} />
         </Box>
 
         <Box>
           <Text fontSize="3xl">Billable settings</Text>
-          <RadioGroup name="radio" defaultValue="1">
+          <RadioGroup onChange={setBilling} defaultValue="1">
             <Stack gap={"20px"}>
               <Radio value="1">
                 <Box ml="20px">
@@ -77,7 +117,7 @@ function ProjectForm() {
             </Stack>
           </RadioGroup>
         </Box>
-        <Button w="15%" colorScheme={"teal"}>Create Project</Button>
+        <Button w="15%" onClick={submit} colorScheme={"teal"}>Create Project</Button>
       </Stack>
     </Box>
   );
