@@ -4,6 +4,7 @@
     height: 100%;
     width: 100%;
     font-family: sans-serif;
+    display: flex;
     /* background-color: blue; */
 }
 
@@ -83,4 +84,43 @@
     /* border: 1px solid blue; */
     width: 100%;
     height: auto;
+}
+
+/* Track Css start  */
+
+.track{
+    border: 1px solid sandybrown;
+    width: 84.50%;
+
+}
+
+.track-title{
+    font-size: 40px;
+    margin-left: 30px;
+    margin-top: 15px;
+    
+}
+
+.weeks-area{
+    border: 1px solid blue;
+    width: 97%;
+    height: 50px;
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    
+
+}
+
+
+.track-dates{
+    width: 359px;
+    height: 35.75px;
+    border: 0.50px solid gray;
+    border-radius: 5px;
+}
+.track-user{
+    width: 270px;
+    height: 35.75px;
+    border: 1px solid green;
 }

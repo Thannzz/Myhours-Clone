@@ -6,16 +6,45 @@ const projectMiddleware = require("../../middleware/projectMiddleware");
 app.use(projectMiddleware);
 //{ <--Getting  all the projects-->}
 app.get("/", async (req, res) => {
-  // console.log("companyID", req.companyID);
-  try {
-    let proj = await Project.find({ companyID: req.companyID });
-    // console.log("proj:", proj);
-    res.send(proj);
-  } catch (error) {
-    console.log("error:", error);
-    res.status(500).send(error.message);
+  const { status, orderBy = "status", order = "asc" } = req.query;
+  // console.log("status:", req.query);
+  let proj;
+  if (status && status === "active") {
+    try {
+      proj = await Project.find({
+        $and: [{ companyID: req.companyID }, { status: true }],
+      });
+      // res.send(proj);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  } else if (status && status === "archived") {
+    try {
+      proj = await Project.find({
+        $and: [{ companyID: req.companyID }, { status: false }],
+      });
+      // res.send(proj);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  } else {
+    try {
+      proj = await Project.find({ companyID: req.companyID })
+      .sort({
+        [orderBy]: order == "asc" ? 1 : -1,
+      });
+      // console.log("proj:", proj);
+      // res.send(proj);
+    } catch (error) {
+      console.log("error:", error);
+      res.status(500).send(error.message);
+    }
   }
+  res.send(proj);
 });
+
+//{ <--Getting  all the projects based on status -->}
+// app.get('/')
 
 //{<-- Firing post req to create a new Proje-->}
 app.post("/new", async (req, res) => {
@@ -41,7 +70,7 @@ app.post("/new", async (req, res) => {
   }
 });
 
-//{<--Get req for a movie search-->}
+//{<--Get req for searching projectName & clientName-->}
 app.get("/search", async (req, res) => {
   const { q } = req.query;
 
