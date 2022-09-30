@@ -1,14 +1,13 @@
 import './App.css';
 import Allroutes from './Components/Allroutes';
-import Projects from './Components/ProjectsPages/Project1';
-import ProjectForm from './Components/ProjectsPages/ProjectForm';
+import Dashboard from './Components/Dashboard';
 
 
 function App() {
   return (
     <div className="App">
-     {/* <Allroutes /> */}
-     <ProjectForm />
+     <Allroutes />
+     {/* <Dashboard/> */}
     </div>
   );
 }
