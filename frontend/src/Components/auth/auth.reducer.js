@@ -1,4 +1,4 @@
-import { AUTH_SUCCESS } from "./auth.type";
+import { AUTH_POSTDATA, AUTH_SUCCESS } from "./auth.type";
 
 let initialState = {
   token: "",
@@ -14,6 +14,7 @@ export const loginReducer = (state = initialState, action) => {
         isAuth: true,
       };
     }
+   
 
     default: {
       return state;

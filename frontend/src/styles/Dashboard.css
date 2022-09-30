@@ -4,6 +4,7 @@
     height: 100%;
     width: 100%;
     font-family: sans-serif;
+    display: flex;
     /* background-color: blue; */
 }
 
@@ -12,8 +13,10 @@
 
 .sidebar{
     /* border: 1px solid orange; */
-    width: 15.50%;
-    height: 695px;
+    width: 14%;
+    position: fixed;
+    /* height: 695px; */
+    /* height: 100%; */
     border-left: 5px solid green;
     border-right: 0.50px solid gray;
     background-color: #f8f9fa;
@@ -81,4 +84,98 @@
     /* border: 1px solid blue; */
     width: 100%;
     height: auto;
+}
+
+/* Track Css start  */
+
+.track{
+    border: 1px solid sandybrown;
+    width: 84.50%;
+
+}
+
+.track-title{
+    font-size: 40px;
+    margin-left: 30px;
+    margin-top: 15px;
+    
+}
+
+.weeks-area{
+    /* border: 1px solid blue; */
+    width: 97%;
+    height: 50px;
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    
+
+}
+
+
+.track-dates{
+    width: 359px;
+    height: 35.75px;
+    border: 0.50px solid gray;
+    border-radius: 5px;
+}
+.track-user{
+    width: 270px;
+    height: 35.75px;
+    border: 1px solid gray;
+    margin-left: 2rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+
+}
+
+.client-projects{
+    /* border: 1px solid blue; */
+    width: 97%;
+    height: 70px;
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.budget-title{
+    /* border: 1px solid blueviolet; */
+    height: 37.5px;
+    width: 60%;
+    margin-left: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: gray;
+    
+}
+.budget-dates{
+    /* border: 1px solid green; */
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 13px;
+}
+
+
+.budget-values{
+    /* border: 1px solid orangered; */
+    height: 30px;
+    color: gray;
+    display: flex;
+}
+.budget-dates-values{
+      /* border: 1px solid green; */
+    width: 48%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin-left: 108px;
+    
+
 }
