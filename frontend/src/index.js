@@ -7,17 +7,31 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/index";
 import { ChakraProvider } from "@chakra-ui/react";
+<<<<<<< HEAD
 import AuthContextProvider from "./Components/AuthContext"
+=======
+import AppContextProvider from "./context/Appcontext";
+
+>>>>>>> 2397850e27894ecc6233cc36c508b6dc4f347121
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+<<<<<<< HEAD
     <ChakraProvider>
       <BrowserRouter>
       <AuthContextProvider>
         <App />
         </AuthContextProvider>
       </BrowserRouter>
+=======
+      <ChakraProvider>
+        <AppContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AppContextProvider>
+>>>>>>> 2397850e27894ecc6233cc36c508b6dc4f347121
       </ChakraProvider>
     </Provider>
   </React.StrictMode>
