@@ -8,26 +8,23 @@ import { Provider } from "react-redux";
 import { store } from "./store/index";
 import { ChakraProvider } from "@chakra-ui/react";
 import AuthContextProvider from "./Components/AuthContext"
+import AppContextProvider from "./context/Appcontext";
 
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-
-    <Provider store={store}>
+  <Provider store={store}>
     <ChakraProvider>
-      <BrowserRouter>
-      <AuthContextProvider>
-        <App />
-        </AuthContextProvider>
-      </BrowserRouter>
-      </ChakraProvider>
-      </Provider>
-      
-
-     
-   
-  
+      <AppContextProvider>
+        <BrowserRouter>
+          <AuthContextProvider>
+            <App />
+          </AuthContextProvider>
+        </BrowserRouter>
+      </AppContextProvider>
+    </ChakraProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
