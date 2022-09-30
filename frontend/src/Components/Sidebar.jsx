@@ -46,12 +46,6 @@ export default function Sidebar() {
     },
   ];
 
-
-
-
-
-
-
   return (
     <div className="sidebar">
       <div className="box1">
@@ -112,7 +106,7 @@ export default function Sidebar() {
 
       <div className="box4">
         {box4.map((item) => (
-          <>
+          <div key={item.title}>
             <div className="items">
               {" "}
               <i
@@ -125,7 +119,7 @@ export default function Sidebar() {
                 class={`bi-${item.rIcon}`}
               ></i>
             </div>
-          </>
+          </div>
         ))}
       </div>
     </div>
