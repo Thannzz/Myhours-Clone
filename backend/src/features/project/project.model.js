@@ -10,7 +10,7 @@ const projectSchema = new mongoose.Schema({
   description: { type: String },
   companyID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: "company",
     required: true,
   },
   billing: { type: Boolean, required: true },
