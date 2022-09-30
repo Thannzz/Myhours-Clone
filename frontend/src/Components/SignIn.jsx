@@ -26,7 +26,7 @@ function SignIn() {
   useEffect(() => {
     if (isAuth) {
       console.log(token);
-      navigate("/");
+      navigate("/dashboard");
     }
   }, [isAuth]);
 

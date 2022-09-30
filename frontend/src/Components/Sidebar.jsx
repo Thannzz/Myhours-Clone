@@ -47,12 +47,6 @@ export default function Sidebar() {
     },
   ];
 
-
-
-
-
-
-
   return (
     <div className="sidebar">
       <div className="box1">
@@ -115,7 +109,7 @@ export default function Sidebar() {
 
       <div className="box4">
         {box4.map((item) => (
-          <>
+          <div key={item.title}>
             <div className="items">
               <Link  style={{ width: "100%" }} to={item.location}>
                 {" "}
@@ -130,7 +124,7 @@ export default function Sidebar() {
                 ></i>
               </Link>
             </div>
-          </>
+          </div>
         ))}
       </div>
     </div>
