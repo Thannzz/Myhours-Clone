@@ -7,10 +7,10 @@ export const AuthContext = createContext();
 const initial = {
   name: "",
   email: "",
-  number: "",
-  employee: "",
+  mobileNumber: "",
+  companySize: "",
   country: "",
-  company_name: "",
+  companyName: "",
 };
 
 function AuthContextProvider(props) {
