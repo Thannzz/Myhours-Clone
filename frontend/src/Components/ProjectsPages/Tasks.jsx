@@ -20,13 +20,12 @@ import {
   } from "@chakra-ui/react";
 import { useState } from 'react';
 
-const getData = (id)
 
 function Tasks() {
     const [ projects, setProjects ] = useState({});
   return (
     <Box>
-
+        <Text fontSize="5xl">Task</Text>
     </Box>
   )
 }

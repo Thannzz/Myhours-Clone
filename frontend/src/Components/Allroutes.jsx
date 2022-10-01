@@ -5,6 +5,7 @@ import DetailPage from './DetailPage'
 import Home from './Home'
 import PrivateRoute from './PrivateRoute'
 import Projects from './ProjectsPages/Project1'
+import Tasks from './ProjectsPages/Tasks'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 
@@ -27,11 +28,12 @@ function Allroutes() {
         <Route
           path="/dashboard/projects"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Projects />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
+        <Route path="/task" element={<Tasks/>} />
       </Routes>
     </>
   );

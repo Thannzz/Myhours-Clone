@@ -43,6 +43,8 @@ function ProjectForm() {
   };
 
   const submit = async () => {
+    console.log("team", team);
+    console.log("billing", radio);
     setProject({
       ...project,
       teamMembers: team,
@@ -56,7 +58,7 @@ function ProjectForm() {
       },
       url: "http://localhost:8080/projects/new",
       data: project,
-    }).then((res) => console.log(res.data));
+    })
     // console.log(res.data);
   };
 
