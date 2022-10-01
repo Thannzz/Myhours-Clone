@@ -35,10 +35,12 @@ import { useContext } from "react";
 import { AppContext } from "../../context/Appcontext";
 
 const getProjects = async (url) => {
+
   let token = JSON.parse(localStorage.getItem("token"));
   let res = await axios.get(url, {
     headers: {
       token: token,
+
     },
   });
   // console.log("token:", token);
@@ -67,6 +69,7 @@ export default function Projects() {
     getProjects(url).then((res) => setProjects(res));
   }, []);
 
+
   return (
     <Flex>
       <Sidebar />
@@ -76,12 +79,14 @@ export default function Projects() {
             Projects
           </Text>
           <Spacer />
-          <Button bg={"#3B8FC2"} color="white">
-            <Flex align={"center"}>
-              <AddIcon mr="10px" />
-              Add New Projects
-            </Flex>
-          </Button>
+          <Link to="/projectCreation">
+            <Button bg={"#3B8FC2"} color="white">
+              <Flex align={"center"}>
+                <AddIcon mr="10px" />
+                Add New Projects
+              </Flex>
+            </Button>
+          </Link>
         </Flex>
         <Flex align={"center"}>
           <Input

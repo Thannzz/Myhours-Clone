@@ -7,6 +7,7 @@ import DetailPage from "./DetailPage";
 import Home from "./Home";
 import PrivateRoute from "./PrivateRoute";
 import Projects from "./ProjectsPages/Project1";
+import ProjectForm from "./ProjectsPages/ProjectForm"
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Tasks from "./ProjectsPages/Tasks"
@@ -34,6 +35,15 @@ function Allroutes() {
 
             <Projects />
              </PrivateRoute>
+          }
+        />
+        <Route
+          path="/projectCreation"
+          element={
+            <PrivateRoute>
+
+            <ProjectForm />
+              </PrivateRoute>
           }
         />
         <Route
