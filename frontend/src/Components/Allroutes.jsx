@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import ReportsPage from "../pages/ReportsPage";
@@ -29,6 +30,7 @@ function Allroutes() {
           path="/dashboard/projects"
           element={
             // <PrivateRoute>
+
             <Projects />
             // </PrivateRoute>
           }
@@ -41,6 +43,7 @@ function Allroutes() {
             // </PrivateRoute>
           }
         />
+        <Route path="/task" element={<Tasks/>} />
       </Routes>
     </>
   );

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Box,
   Button,
@@ -118,7 +119,9 @@ export default function Projects() {
             {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
             <Thead borderBottom={"1px solid lightGray"}>
               <Tr>
-                <Th>NAME</Th>
+                <Th>
+                  NAME
+                  </Th>
                 <Th>CLIENT</Th>
                 <Th>TOTAL HOURS</Th>
                 <Th>BILLABLE AMOUNT</Th>
@@ -130,8 +133,10 @@ export default function Projects() {
             </Thead>
             <Tbody>
               {projects.map((item) => (
-                <Tr>
-                  <Td>{item.projectname}</Td>
+                <Tr key={item.createdOn}>
+                  <Td>
+                    <Link to="/task">{item.projectname}</Link>
+                    </Td>
                   <Td>{item.clientName}</Td>
                   <Td>{item.hours}</Td>
                   <Td>{item.billingAmount}</Td>

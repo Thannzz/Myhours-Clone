@@ -56,7 +56,8 @@ function ProjectForm() {
       },
       url: "http://localhost:8080/projects/new",
       data: project,
-    }).then((res) => console.log(res.data));
+    })
+
     // console.log(res.data);
   };
 
