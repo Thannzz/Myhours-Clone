@@ -40,10 +40,10 @@ import { AppContext } from "../../context/Appcontext";
   /** API */
 }
 const getProjects = async (url) => {
-  let res = await axios.get(url,{
+  let res = await axios.get(url, {
     headers: {
-      "token": "6333e76d834c4636928012c6:singla@gmail.com :23104"
-    }
+      token: "6333e76d834c4636928012c6:singla@gmail.com :23104",
+    },
   });
   console.log(res);
   return res.data;
@@ -71,23 +71,23 @@ export default function Projects() {
     getProjects(`${url}/search?q=${query}`).then((res) => setProjects(res));
   }, [query]);
 
-  
-
   return (
     <Flex>
       <Sidebar />
-      <Box m={"30px"}  w="85%">
+      <Box m={"30px"} w="85%">
         <Flex mb={"30px"}>
           <Text fontSize="4xl" fontWeight="500">
             Projects
           </Text>
           <Spacer />
-          <Button bg={"#3B8FC2"} color="white">
-            <Flex align={"center"}>
-              <AddIcon mr="10px" />
-              Add New Projects
-            </Flex>
-          </Button>
+          <Link to="/projectCreation">
+            <Button bg={"#3B8FC2"} color="white">
+              <Flex align={"center"}>
+                <AddIcon mr="10px" />
+                Add New Projects
+              </Flex>
+            </Button>
+          </Link>
         </Flex>
         <Flex align={"center"}>
           <Input
@@ -122,9 +122,7 @@ export default function Projects() {
             {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
             <Thead borderBottom={"1px solid lightGray"}>
               <Tr>
-                <Th>
-                  NAME
-                  </Th>
+                <Th>NAME</Th>
                 <Th>CLIENT</Th>
                 <Th>TOTAL HOURS</Th>
                 <Th>BILLABLE AMOUNT</Th>
@@ -137,15 +135,15 @@ export default function Projects() {
             <Tbody>
               {projects.map((item) => (
                 <Tr key={item.createdOn}>
-                  <Td onClick={()=>setProject(item)}>
+                  <Td onClick={() => setProject(item)}>
                     <Link to="/task">{item.projectname}</Link>
-                    </Td>
+                  </Td>
                   <Td>{item.clientName}</Td>
                   <Td>{item.hours}</Td>
                   <Td>{item.billingAmount}</Td>
                   <Td>{item.budgetSpent}</Td>
-                  <Td>{item.createdOn.slice(4,16)}</Td>
-                  <Td>{item.status? "Active":"inActive"}</Td>
+                  <Td>{item.createdOn.slice(4, 16)}</Td>
+                  <Td>{item.status ? "Active" : "inActive"}</Td>
                   <Td>
                     <Flex justifyContent={"space-evenly"}>
                       <Image src={pen} w="16px" />
