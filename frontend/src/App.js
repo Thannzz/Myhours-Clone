@@ -7,8 +7,8 @@ import ProjectForm from './Components/ProjectsPages/ProjectForm';
 function App() {
   return (
     <div className="App">
-     {/* <Allroutes /> */}
-     <ProjectForm />
+     <Allroutes />
+     {/* <ProjectForm /> */}
     </div>
   );
 }

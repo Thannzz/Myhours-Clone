@@ -1,5 +1,5 @@
-import React from 'react'
-import "../styles/Dashboard.css"
+import React from "react";
+import "../styles/Dashboard.css";
 import { Button, WrapItem } from "@chakra-ui/react";
 
 export default function Track() {
