@@ -19,9 +19,11 @@ export default function Dashboard() {
 
 
   useEffect(()=>{
-    getUserName("6333e6ca834c4636928012c3:thani@gmail.com :qwerty")
+    let token = JSON.parse(localStorage.getItem("token"))
+    // console.log("in track page----->",token)
+    getUserName(token)
     .then((res)=>{
-      // console.log(res.data)
+      console.log(res.data)
     })
     .catch((err)=>{
       console.log(err)
