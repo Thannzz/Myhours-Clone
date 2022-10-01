@@ -26,6 +26,8 @@ function SignIn() {
   useEffect(() => {
     if (isAuth) {
       console.log(token);
+      const token= token
+      // localStorage.setItem('token', JSON.stringify(token));
       navigate("/dashboard");
     }
   }, [isAuth]);
