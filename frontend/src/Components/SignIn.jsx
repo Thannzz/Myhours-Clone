@@ -19,18 +19,19 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/Appcontext";
 function SignIn() {
   const [data, setData] = useState({});
-  const [isAuthPrivate,setIsAuth] = useContext(AppContext)
+  const { isAuthPrivate, setIsAuth } = useContext(AppContext);
   const { token, isAuth } = useSelector((store) => store.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // console.log("appCOntext :", AppContext);
 
   useEffect(() => {
     if (isAuth) {
-      setIsAuth(true)
-      localStorage.setItem('token', JSON.stringify(token));
+      setIsAuth(true);
+      localStorage.setItem("token", JSON.stringify(token));
       navigate("/dashboard/track");
     }
-  }, [isAuth,token,setIsAuth]);
+  }, [isAuth, token, setIsAuth]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +44,6 @@ function SignIn() {
   const handleClick = () => {
     dispatch(Logins(data));
   };
-
   return (
     <Container>
       <Box mt="150px" p="30px" pt="50px" boxShadow="lg">
