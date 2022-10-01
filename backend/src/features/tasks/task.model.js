@@ -27,6 +27,10 @@ const taskSchema = new mongoose.Schema({
   budget:{
     type:Number , 
     min:0
+  },
+  status : {
+    type:Boolean,
+    default:false,
   }
 });
 const Task = mongoose.model("task", taskSchema);

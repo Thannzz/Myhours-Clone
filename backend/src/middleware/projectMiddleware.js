@@ -1,8 +1,6 @@
 const Company = require("../features/company/company.model");
 
 const projectMiddleware = async (req, res, next) => {
-  // console.log('req.headers:', req.headers)
-  console.log("headers", req.headers);
   let token = req.headers.token;
   // console.log("token", token)
   let [id, email, password] = token.split(":");
