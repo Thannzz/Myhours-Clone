@@ -36,10 +36,10 @@ import Sidebar from "../Components/Sidebar";
 {
   /** API */
 }
-const getProjects = async (url) => {
-  let res = await axios.get(url, {
+const getProjects = async (token) => {
+  let res = await axios.get("http://localhost:8080/projects", {
     headers: {
-      token: "6333e76d834c4636928012c6:singla@gmail.com :23104",
+      token: token,
     },
   });
   // console.log(res);
@@ -51,10 +51,10 @@ export default function Reports() {
   const [amount, setAmount] = useState(0);
   const [budSpent, setBudSpent] = useState(0);
   const [projects, setProjects] = useState([]);
-  const url = "http://localhost:8080/projects";
-
+  // const url = "http://localhost:8080/projects";
+  let token = JSON.parse(localStorage.getItem("token"));
   useEffect(() => {
-    getProjects(url).then((res) => setProjects(res));
+    getProjects(token).then((res) => setProjects(res));
   }, []);
   useEffect(() => {
     projects.map((item) => {
@@ -63,13 +63,11 @@ export default function Reports() {
       setBudSpent((prev) => prev + item.budgetSpent);
     });
   }, [projects]);
-  // console.log(budSpent);
+  console.log("tokrn :", token);
   return (
     <>
       <Flex w="100%" h="auto">
-        {/* <Box w="200px" h="200px" border="1p solid red"> */}
         <Sidebar />
-        {/* </Box> */}
 
         <Box p="1rem" height="auto" w="100%">
           <Flex mb="1rem">
