@@ -6,12 +6,12 @@ import { useState } from "react";
 import HoursForm from "./HoursForm";
 
 export default function Track() {
-  const [mon,setMon] = useState("0:00")
+  const [mon, setMon] = useState("0:00");
   const [tue, setTue] = useState("0:00");
   const [wed, setWed] = useState("0:00");
   const [thu, setThu] = useState("0:00");
   const [fri, setFri] = useState("0:00");
-  const [totalBudget,setTotalBudget] = useState(null)
+  const [totalBudget, setTotalBudget] = useState(0);
   const budgetDates = [
     "Mon, 26 Sep",
     "Tue, 27 Sep",
@@ -19,13 +19,32 @@ export default function Track() {
     "Thu, 29 Sep",
     "Fri, 30 Sep",
   ];
-  const budgetDatesValues = [
-  mon,
-  tue,
-  wed,
-  thu,
-  fri,
-  ];
+  const budgetDatesValues = [mon, tue, wed, thu, fri];
+
+
+  let handleHours1 = (value) => {
+    setMon(value);
+    setTotalBudget((pre) => pre + +(value));
+  };
+
+  let handleHours2 = (value) => {
+    setTue(value);
+    setTotalBudget((pre) => pre + +(value));
+  };
+  let handleHours3 = (value) => {
+    setWed(value);
+    setTotalBudget((pre) => pre + +(value));
+  };
+  let handleHours4 = (value) => {
+    setThu(value);
+    setTotalBudget((pre) => pre + +(value));
+  };
+  let handleHours5 = (value) => {
+    setFri(value);
+    setTotalBudget((pre) => pre + +(value));
+  };
+
+  let handleHours = {handleHours1,handleHours2,handleHours3,handleHours4,handleHours5};
 
   return (
     <div className="track">
@@ -125,7 +144,7 @@ export default function Track() {
         marginLeft="30px"
       />
       <Box w="97%" ml="30px" mt="5px">
-        <HoursForm totalBudget={totalBudget} />
+        <HoursForm totalBudget={totalBudget} handleHours={handleHours} />
       </Box>
     </div>
   );
