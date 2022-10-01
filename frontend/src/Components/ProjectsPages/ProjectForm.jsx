@@ -16,44 +16,49 @@ function ProjectForm() {
   const initialProject = {
     projectname: "",
     clientName: "",
-    description: '',
+    description: "",
     billing: false,
     hours: 0,
-    billingAmount:0,
+    billingAmount: 0,
     budgetSpent: 0,
-    createdON: "",
+    createdON: Date(),
     status: true,
     teamMembers: [],
-  }
+  };
   const [project, setProject] = useState(initialProject);
-  const [ team, setteam] = useState("");
-    const onChange = (e)=>{
-      const { name:key, value } = e.target;
-      setProject({
-        ...initialProject,
-        [key]:value,
-      })
-    };
-    const setTeam = (e)=>{
-      setteam(e.target.value);
-    };
-    const setBilling = (e)=>{
-      setProject({
-        ...initialProject,
-        billing: e.target.value === "2"? true : false,
-      })
-    };
+  const [team, setteam] = useState([]);
+  const [radio, setRadio] = useState("1");
 
-    const submit = ()=>{
-      setProject({
-        ...initialProject,
-        teamMembers: team.split(", ")
-      })
-      let res = axios.post("http://localhost:8080/projects/new",{ body: project, headers :{
-        token: "6333e76d834c4636928012c6:singla@gmail.com :23104"
-      }});
-      console.log(res.data);
-    }
+  const onChange = (e) => {
+    let { name: key, value } = e.target;
+    setProject({
+      ...project,
+      [key]: value,
+    });
+    // console.log(key, e.target.value);
+  };
+
+  const setTeam = (e) => {
+    setteam(e.target.value.split(", "));
+  };
+
+  const submit = async () => {
+    setProject({
+      ...project,
+      teamMembers: team,
+      billing: radio === "2" ? true : false,
+    });
+
+    let res = await axios({
+      method: "POST",
+      headers: {
+        token: "6333e691834c4636928012bf:thaa@gmail.com :qwerty",
+      },
+      url: "http://localhost:8080/projects/new",
+      data: project,
+    }).then((res) => console.log(res.data));
+    // console.log(res.data);
+  };
 
   return (
     <Box w="40%" m={"auto"} mb="100px">
@@ -63,7 +68,11 @@ function ProjectForm() {
       <Stack gap={"20px"}>
         <Box>
           <FormLabel>Project Name</FormLabel>
-          <Input name="projectname" placeholder="Project Name" onChange={onChange} />
+          <Input
+            name="projectname"
+            placeholder="Project Name"
+            onChange={onChange}
+          />
         </Box>
         <Box>
           <FormLabel>Client</FormLabel>
@@ -71,16 +80,23 @@ function ProjectForm() {
         </Box>
         <Box>
           <FormLabel>Team members</FormLabel>
-          <Input placeholder="add team members i.e.: One, Two, Three..." onChange={setTeam} />
+          <Input
+            placeholder="add team members i.e.: One, Two, Three..."
+            onChange={setTeam}
+          />
         </Box>
         <Box>
           <FormLabel>Description</FormLabel>
-          <Textarea name="discription" placeholder="Description..." onChange={onChange} />
+          <Textarea
+            name="description"
+            placeholder="Description..."
+            onChange={onChange}
+          />
         </Box>
 
         <Box>
           <Text fontSize="3xl">Billable settings</Text>
-          <RadioGroup onChange={setBilling} defaultValue="1">
+          <RadioGroup onChange={setRadio} value={radio}>
             <Stack gap={"20px"}>
               <Radio value="1">
                 <Box ml="20px">
@@ -117,7 +133,9 @@ function ProjectForm() {
             </Stack>
           </RadioGroup>
         </Box>
-        <Button w="15%" onClick={submit} colorScheme={"teal"}>Create Project</Button>
+        <Button w="15%" onClick={submit} colorScheme={"teal"}>
+          Create Project
+        </Button>
       </Stack>
     </Box>
   );
