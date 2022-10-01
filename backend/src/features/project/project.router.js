@@ -6,7 +6,7 @@ const projectMiddleware = require("../../middleware/projectMiddleware");
 app.use(projectMiddleware);
 //{ <--Getting  all the projects-->}
 app.get("/", async (req, res) => {
-  const { status, orderBy = "status", order = "asc" } = req.query;
+  const { status, orderBy = "status", order = "asc", q } = req.query;
   // console.log("status:", req.query);
   let proj;
   if (status && status === "active") {
@@ -26,6 +26,26 @@ app.get("/", async (req, res) => {
       // res.send(proj);
     } catch (error) {
       res.status(500).send(error.message);
+    }
+  } else if (q) {
+    const { q } = req.query;
+    let companyID = req.companyID;
+    try {
+      let items = await Project.find({
+        $and: [
+          { companyID: req.companyID },
+          {
+            $or: [
+              { projectname: { $regex: q } },
+              { clientName: { $regex: q } },
+            ],
+          },
+        ],
+      }).populate("companyID");
+      res.send(items);
+    } catch (e) {
+      // console.log(e.message);
+      res.status(500).send(e);
     }
   } else {
     try {
@@ -64,9 +84,6 @@ app.get("/:id", async (req, res) => {
     });
 });
 
-//{ <--Getting  all the projects based on status -->}
-// app.get('/')
-
 //{<-- Firing post req to create a new Proje-->}
 app.post("/new", async (req, res) => {
   let companyID = req.companyID;
@@ -93,23 +110,10 @@ app.post("/new", async (req, res) => {
 
 //{<--Get req for searching projectName & clientName-->}
 // {$and: [{"gender": "Male"}, {"age": 42}]}
-app.get("/search", async (req, res) => {
-  const { q } = req.query;
-  // let companyID = req.companyID;
-  try {
-    let items = await Project.find({
-      $and: [
-        { companyID: req.companyID },
-        {
-          $or: [{ projectname: { $regex: q } }, { clientName: { $regex: q } }],
-        },
-      ],
-    }).populate("companyID");
-    res.send(items);
-  } catch (e) {
-    console.log(e.message);
-  }
-});
+// app.get("/search", async (req, res) => {
+//   // console.log("query:", req.query);
+//   // res.send("for queery params");
+// });
 
 //{<--Firing Delete req for an projectid-->}
 app.delete("/:id", async (req, res) => {
@@ -145,4 +149,5 @@ app.patch("/:id", async (req, res) => {
     res.status(404).send(error.message);
   }
 });
+
 module.exports = app;

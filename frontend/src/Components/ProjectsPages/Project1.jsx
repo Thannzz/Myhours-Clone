@@ -35,12 +35,10 @@ import { useContext } from "react";
 import { AppContext } from "../../context/Appcontext";
 
 const getProjects = async (url) => {
-
   let token = JSON.parse(localStorage.getItem("token"));
   let res = await axios.get(url, {
     headers: {
       token: token,
-
     },
   });
   // console.log("token:", token);
@@ -56,9 +54,7 @@ export default function Projects() {
   const onChange = (e) => {
     // setQuery(e.target.value);
     // console.log(query);
-    getProjects(`${url}/search?q=${e.target.value}`).then((res) =>
-      setProjects(res)
-    );
+    getProjects(`${url}?q=${e.target.value}`).then((res) => setProjects(res));
   };
   console.log("Porj :", projects);
   {
@@ -68,7 +64,6 @@ export default function Projects() {
   useEffect(() => {
     getProjects(url).then((res) => setProjects(res));
   }, []);
-
 
   return (
     <Flex>
