@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProjectForm() {
   const initialProject = {
@@ -28,6 +29,7 @@ function ProjectForm() {
   const [project, setProject] = useState(initialProject);
   const [team, setteam] = useState([]);
   const [radio, setRadio] = useState("1");
+  const navigate = useNavigate("/dashboard/project");
 
   const onChange = (e) => {
     let { name: key, value } = e.target;
@@ -56,9 +58,10 @@ function ProjectForm() {
       },
       url: "http://localhost:8080/projects/new",
       data: project,
-    })
+    });
 
     // console.log(res.data);
+    navigate();
   };
 
   return (

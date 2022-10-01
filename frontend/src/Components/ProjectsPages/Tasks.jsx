@@ -81,6 +81,7 @@ function Tasks() {
         <Divider m="10px 0px" />
         <Stack gap="5px" w={"40%"}>
           {tasks.map((task) => (
+            task.status? null : 
             <Flex key={task._id}>
               <IconButton  icon={<CheckCircleIcon />} />
               <Text ml="10px" fontSize={"xl"}>Task: {task.task}</Text>
@@ -130,6 +131,16 @@ function Tasks() {
               Add This Task
             </Button>
           </box>
+          {tasks.map((task) => (
+            task.status? 
+            <Flex key={task._id}>
+              <IconButton  icon={<CheckCircleIcon />} />
+              <Text ml="10px" fontSize={"xl"}>Task: {task.task}</Text>
+              <Spacer />
+              <Text fontSize={"l"}>Budget: {task.budget} Hours</Text>
+            </Flex>
+            : null
+          ))}
         </Stack>
       </Box>
     </Flex>
