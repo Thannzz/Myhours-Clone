@@ -11,7 +11,7 @@ const getProjectsName = (token) => {
 };
 
 
-export default function HoursForm({ totalBudget,handleHours }) {
+export default function HoursForm({ totalBudget,handleHours,i }) {
   const [projectNames,setProjectNames] =  useState([]);
   let {handleHours1,handleHours2,handleHours3,handleHours4,handleHours5} = handleHours;
 
@@ -39,16 +39,19 @@ export default function HoursForm({ totalBudget,handleHours }) {
           h="35px"
           placeholder="Select/create a project..."
         /> */}
-
         <Select
           onClick={handleGetName}
           width="26%"
           h="35px"
+          fontFamily="mono"
           placeholder="Select/create a project..."
         >
-          {projectNames&&projectNames.map((name) => (
-            <option value={name.projectName}>{    name.projectname} - {name.projectname}</option>
-          ))}
+          {projectNames &&
+            projectNames.map((name) => (
+              <option value={name.projectName}>
+                {name.projectname} - {name.projectname}
+              </option>
+            ))}
         </Select>
 
         <Input
@@ -58,12 +61,47 @@ export default function HoursForm({ totalBudget,handleHours }) {
           h="35px"
           placeholder="Select/create a..."
         />
-        <Input onChange={(e)=> handleHours1(e.target.value)} htmlSize={4} width="8%" ml="13px" h="35px" placeholder="hour" />
+        <Input
+          onChange={(e) => handleHours1(e.target.value)}
+          htmlSize={4}
+          width="8%"
+          ml="13px"
+          h="35px"
+          placeholder="hour"
+        />
 
-        <Input onChange={(e)=> handleHours2(e.target.value)} htmlSize={4} width="8%" ml="13px" h="35px" placeholder="hour" />
-        <Input onChange={(e)=> handleHours3(e.target.value)} htmlSize={4} width="8%" ml="8px" h="35px" placeholder="hour" />
-        <Input onChange={(e)=> handleHours4(e.target.value)} htmlSize={4} width="8%" ml="8px" h="35px" placeholder="hour" />
-        <Input onChange={(e)=> handleHours5(e.target.value)} htmlSize={4} width="8%" ml="9px" h="35px" placeholder="hour" />
+        <Input
+          onChange={(e) => handleHours2(e.target.value)}
+          htmlSize={4}
+          width="8%"
+          ml="13px"
+          h="35px"
+          placeholder="hour"
+        />
+        <Input
+          onChange={(e) => handleHours3(e.target.value)}
+          htmlSize={4}
+          width="8%"
+          ml="8px"
+          h="35px"
+          placeholder="hour"
+        />
+        <Input
+          onChange={(e) => handleHours4(e.target.value)}
+          htmlSize={4}
+          width="8%"
+          ml="8px"
+          h="35px"
+          placeholder="hour"
+        />
+        <Input
+          onChange={(e) => handleHours5(e.target.value)}
+          htmlSize={4}
+          width="8%"
+          ml="9px"
+          h="35px"
+          placeholder="hour"
+        />
         <Text fontSize="md" ml="49px">
           {totalBudget || "00:00"}
         </Text>
