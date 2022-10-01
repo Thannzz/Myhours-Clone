@@ -30,6 +30,7 @@ app.get("/", async (req, res) => {
   } else {
     try {
       proj = await Project.find({ companyID: req.companyID })
+      .populate('companyID')
       .sort({
         [orderBy]: order == "asc" ? 1 : -1,
       });
