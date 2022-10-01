@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-export default function Sidebar() {
+export default function Sidebar({userName}) {
 
 
   const box2 = [
@@ -42,7 +42,7 @@ export default function Sidebar() {
       icon: "person",
       rIcon: "chevron-up",
       marginLeft: "37px",
-      title: "User Name",
+      title: userName,
       location: "#",
     },
   ];
@@ -62,8 +62,8 @@ export default function Sidebar() {
       </div>
 
       <div className="box2">
-        {box2.map((item) => (
-          <div className="items">
+        {box2.map((item,ind) => (
+          <div key={ind} className="items">
             <Link style={{ width: "100%" }} to={item.location}>
               {" "}
               <i
@@ -108,8 +108,8 @@ export default function Sidebar() {
       </div>
 
       <div className="box4">
-        {box4.map((item) => (
-          <div key={item.title}>
+        {box4.map((item,ind) => (
+          <div key={ind}>
             <div className="items">
               <Link  style={{ width: "100%" }} to={item.location}>
                 {" "}
