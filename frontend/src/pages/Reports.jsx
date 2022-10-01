@@ -67,11 +67,11 @@ export default function Reports() {
   return (
     <>
       <Flex w="100%" h="auto">
-        <Box>
-          <Sidebar />
-        </Box>
+        {/* <Box w="200px" h="200px" border="1p solid red"> */}
+        <Sidebar />
+        {/* </Box> */}
 
-        <Box ml="15%" p="1rem" height="auto" w="100%">
+        <Box p="1rem" height="auto" w="100%">
           <Flex mb="1rem">
             <Text fontSize="4xl" fontWeight="500">
               Dashboard
