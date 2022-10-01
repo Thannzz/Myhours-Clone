@@ -1,15 +1,17 @@
 import { Box, Text, Image, SimpleGrid, Heading } from "@chakra-ui/react";
 import Footer from "./Footer";
 import "./Home.css";
+import MobileNav from "./MobileNav";
 import Navbar from "./Navbar";
 function Home() {
   return (
     <>
     <Navbar/>
+    <MobileNav/>
     <Box as="main" mt="130px">
       <Box px="60px" border="3px" borderColor="blue">
         <Text
-          fontSize="80px"
+          fontSize={[30,35,40,85]}
           width="80%"
           align="center"
           m="auto"
