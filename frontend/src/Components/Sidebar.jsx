@@ -16,7 +16,7 @@ export default function Sidebar() {
       rIcon: "bi-chevron-down",
       marginLeft: "55px",
       title: "Reports",
-      location: "/dashboard/track",
+      location: "/dashboard/reports",
     },
     {
       icon: "folder",
