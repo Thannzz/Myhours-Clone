@@ -44,6 +44,26 @@ app.get("/", async (req, res) => {
   res.send(proj);
 });
 
+//Get api for a particulat proj ID
+app.get("/:id", async (req, res) => {
+  let { id } = req.params;
+
+  await Project.findById(id)
+    .populate("companyID")
+    .then((user) => {
+      if (!user) {
+        res.status(404).send(id + " was not found");
+      } else {
+        res.status(200).send(user);
+      }
+    })
+
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
 //{ <--Getting  all the projects based on status -->}
 // app.get('/')
 
