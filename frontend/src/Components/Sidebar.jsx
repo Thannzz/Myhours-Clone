@@ -23,14 +23,14 @@ export default function Sidebar({userName}) {
       rIcon: "bi-chevron-down",
       marginLeft: "62px",
       title: "Clients",
-      location: "/dashboard/track",
+      location: "#",
     },
     {
       icon: "people",
       rIcon: "bi-chevron-down",
       marginLeft: "72px",
       title: "Team",
-      location: "/dashboard/track",
+      location: "#",
     },
   ];
 
@@ -41,7 +41,7 @@ export default function Sidebar({userName}) {
     {
       icon: "person",
       rIcon: "chevron-up",
-      marginLeft: "37px",
+      marginLeft: "115px",
       title: userName,
       location: "#",
     },
