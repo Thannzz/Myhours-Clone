@@ -1,15 +1,13 @@
-import { Box, Divider, Input, Text } from "@chakra-ui/react";
+import { Box, Divider, Input} from "@chakra-ui/react";
 import React from "react";
 import { Select } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
-import { Button} from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
 import {
   Alert,
   AlertIcon,
-  AlertTitle,
-  AlertDescription,
 } from "@chakra-ui/react";
 
 const getProjectsName = (token) => {
@@ -24,33 +22,35 @@ const getTaskName = (projectid) => {
   });
 };
 
-const updateHours = async (id, hours) => {
-  let response = await fetch(`http://localhost:8080/projects/${id}`, {
+const updateHours = async (id, hours, token) => {
+  let res = await axios({
     method: "PATCH",
-
-    body: JSON.stringify({ hours: hours }),
-
-    headers: { "Content-Type": "application/json" },
+    url: `http://localhost:8080/projects/${id}`,
+    headers: { token: token },
+    data: { hours: hours },
   });
-  return response;
+  return res;
 };
 
 export default function HoursForm({ totalBudget, handleHours, i }) {
   const [projectNames, setProjectNames] = useState([]);
   const [taskNames, setTaskNames] = useState([]);
+  const [token, setToken] = useState(null);
 
   const [selectProjectInd, setSelectProjectInd] = useState(null);
   const [projectid, setProjectid] = useState(null);
   let { handleHours1, handleHours2, handleHours3, handleHours4, handleHours5 } =
     handleHours;
   let [alert, setAlert] = useState(false);
+  let [isError, setIsError] = useState(false);
 
   let handleGetName = () => {
     let token = JSON.parse(localStorage.getItem("token"));
+    setToken(token);
 
-    getProjectsName("6333e691834c4636928012bf:thaa@gmail.com :qwerty")
+    getProjectsName(token)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setProjectNames(res.data);
       })
       .catch((err) => {
@@ -59,13 +59,11 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
   };
 
   const handleTaskName = () => {
-    console.log("handle Task--->", selectProjectInd);
 
     let oneItem = projectNames.find((elem, ind) => ind == selectProjectInd);
 
-    // console.log( "oneItem--->", oneItem)
     let projectid = oneItem._id;
-    // console.log(projectid)
+    
     setProjectid(projectid);
 
     getTaskName(projectid)
@@ -79,21 +77,21 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
   };
 
   const handleUpdateHours = () => {
-    // console.log("working handleUpdateHours", projectid);
-    // console.log("total hours--->", totalBudget);
-    // updateHours(projectid,totalBudget)
-    // .then((res)=>{console.log(res)})
-    // .catch((err)=>{console.log(err)})
-    setAlert(true);
-    setTimeout(() => {
-      setAlert(false);
-    }, 2000);
+    updateHours(projectid, totalBudget, token)
+      .then((res) => {
 
-    // try{
-    //    updateHours(projectid,totalBudget)
-
-    // }
-    // catch(err){console.log(err)}
+        setAlert(true);
+        setTimeout(() => {
+          setAlert(false);
+        }, 3000);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
+      });
   };
 
   return (
@@ -116,7 +114,6 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
         </Select>
 
         <Select
-          htmlSize={4}
           width="15%"
           ml="6px"
           h="35px"
@@ -132,7 +129,6 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
 
         <Input
           onChange={(e) => handleHours1(e.target.value)}
-          htmlSize={4}
           width="8%"
           ml="13px"
           h="35px"
@@ -141,7 +137,6 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
 
         <Input
           onChange={(e) => handleHours2(e.target.value)}
-          htmlSize={4}
           width="8%"
           ml="13px"
           h="35px"
@@ -149,7 +144,6 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
         />
         <Input
           onChange={(e) => handleHours3(e.target.value)}
-          htmlSize={4}
           width="8%"
           ml="8px"
           h="35px"
@@ -157,7 +151,6 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
         />
         <Input
           onChange={(e) => handleHours4(e.target.value)}
-          htmlSize={4}
           width="8%"
           ml="8px"
           h="35px"
@@ -165,7 +158,6 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
         />
         <Input
           onChange={(e) => handleHours5(e.target.value)}
-          htmlSize={4}
           width="8%"
           ml="9px"
           h="35px"
@@ -180,16 +172,20 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
         >
           Update
         </Button>
-
-        {/* <Text fontSize="md" ml="49px">
-          {totalBudget || "00:00"}
-        </Text> */}
       </Box>
       <Divider borderColor="gray" mt={2} width="99.50%" />
       {alert ? (
         <Alert status="success">
           <AlertIcon />
           Timesheet Updated
+        </Alert>
+      ) : (
+        ""
+      )}
+      {isError ? (
+        <Alert status="error">
+          <AlertIcon />
+          Timesheet Not Updated
         </Alert>
       ) : (
         ""
