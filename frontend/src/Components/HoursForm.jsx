@@ -2,6 +2,7 @@ import { Box, Divider, Input, Text } from '@chakra-ui/react';
 import React from 'react'
 import { Select } from "@chakra-ui/react";
 import axios from "axios"
+import { useState } from 'react';
 
 const getProjectsName = (token) => {
   return axios.get(`http://localhost:8080/projects`, {
@@ -10,7 +11,24 @@ const getProjectsName = (token) => {
 };
 
 
-export default function HoursForm({ totalBudget }) {
+export default function HoursForm({ totalBudget,handleHours }) {
+  const [projectNames,setProjectNames] =  useState([]);
+  let {handleHours1,handleHours2,handleHours3,handleHours4,handleHours5} = handleHours;
+
+
+  let handleGetName = ()=>{
+
+    getProjectsName("6333e691834c4636928012bf:thaa@gmail.com :qwerty")
+    .then((res)=>{
+      // console.log(res.data)
+      setProjectNames(res.data)
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+
+
+  }
 
   return (
     <div>
@@ -22,10 +40,15 @@ export default function HoursForm({ totalBudget }) {
           placeholder="Select/create a project..."
         /> */}
 
-        <Select width="26%" h="35px" placeholder="Select/create a project...">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
+        <Select
+          onClick={handleGetName}
+          width="26%"
+          h="35px"
+          placeholder="Select/create a project..."
+        >
+          {projectNames&&projectNames.map((name) => (
+            <option value={name.projectName}>{    name.projectname} - {name.projectname}</option>
+          ))}
         </Select>
 
         <Input
@@ -35,12 +58,12 @@ export default function HoursForm({ totalBudget }) {
           h="35px"
           placeholder="Select/create a..."
         />
-        <Input htmlSize={4} width="8%" ml="13px" h="35px" placeholder="hour" />
+        <Input onChange={(e)=> handleHours1(e.target.value)} htmlSize={4} width="8%" ml="13px" h="35px" placeholder="hour" />
 
-        <Input htmlSize={4} width="8%" ml="13px" h="35px" placeholder="hour" />
-        <Input htmlSize={4} width="8%" ml="8px" h="35px" placeholder="hour" />
-        <Input htmlSize={4} width="8%" ml="8px" h="35px" placeholder="hour" />
-        <Input htmlSize={4} width="8%" ml="9px" h="35px" placeholder="hour" />
+        <Input onChange={(e)=> handleHours2(e.target.value)} htmlSize={4} width="8%" ml="13px" h="35px" placeholder="hour" />
+        <Input onChange={(e)=> handleHours3(e.target.value)} htmlSize={4} width="8%" ml="8px" h="35px" placeholder="hour" />
+        <Input onChange={(e)=> handleHours4(e.target.value)} htmlSize={4} width="8%" ml="8px" h="35px" placeholder="hour" />
+        <Input onChange={(e)=> handleHours5(e.target.value)} htmlSize={4} width="8%" ml="9px" h="35px" placeholder="hour" />
         <Text fontSize="md" ml="49px">
           {totalBudget || "00:00"}
         </Text>
