@@ -7,7 +7,8 @@ import { Divider } from "@chakra-ui/react";
 import { useState } from "react";
 import HoursForm from "./HoursForm";
 
-export default function Track() {
+export default function Track({ userName }) {
+
   const [mon, setMon] = useState("0:00");
   const [tue, setTue] = useState("0:00");
   const [wed, setWed] = useState("0:00");
@@ -16,11 +17,11 @@ export default function Track() {
   const [totalBudget, setTotalBudget] = useState(0);
   const [formArr, setformArr] = useState([1]);
   const budgetDates = [
-    "Mon, 26 Sep",
-    "Tue, 27 Sep",
-    "Wed, 28 Sep",
-    "Thu, 29 Sep",
-    "Fri, 30 Sep",
+    "Mon, day-1",
+    "Tue, day-2",
+    "Wed, day-3",
+    "Thu, day-4",
+    "Fri, day-5",
   ];
   const budgetDatesValues = [mon, tue, wed, thu, fri];
 
@@ -55,13 +56,11 @@ export default function Track() {
   };
 
   const handleForm = () => {
-    console.log("handleform");
     let temArr = formArr;
     temArr.push(temArr.length + 1);
     setformArr(temArr);
   };
 
-  console.log(formArr);
 
   return (
     <div className="track">
@@ -111,7 +110,9 @@ export default function Track() {
             style={{ fontSize: "23px", marginLeft: "5px" }}
             class="bi-person"
           ></i>
-          <div style={{ width: "82%" }}></div>
+          <div style={{ width: "82%" }}>
+            <span style={{ margin: "auto", marginLeft: "5%" }}>{userName}</span>
+          </div>
           <i style={{ fontSize: "15px" }} class="bi-caret-right-fill"></i>
         </div>
 

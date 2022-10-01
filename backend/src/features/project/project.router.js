@@ -109,8 +109,8 @@ app.delete("/:id", async (req, res) => {
 
 //{<-- Firing Patch req for projectID -->}
 app.patch("/:id", async (req, res) => {
-  let [empty, id] = req.params.id.split(":");
-
+  let {id} = req.params
+console.log('id:', id)
   let updatedData = req.body;
 
   try {
