@@ -13,8 +13,7 @@ app.get("/", async (req, res) => {
     try {
       proj = await Project.find({
         $and: [{ companyID: req.companyID }, { status: true }],
-      })
-      .populate('companyID');
+      }).populate("companyID");
       // res.send(proj);
     } catch (error) {
       res.status(500).send(error.message);
@@ -23,8 +22,7 @@ app.get("/", async (req, res) => {
     try {
       proj = await Project.find({
         $and: [{ companyID: req.companyID }, { status: false }],
-      })
-      .populate('companyID');
+      }).populate("companyID");
       // res.send(proj);
     } catch (error) {
       res.status(500).send(error.message);
@@ -32,10 +30,10 @@ app.get("/", async (req, res) => {
   } else {
     try {
       proj = await Project.find({ companyID: req.companyID })
-      .populate('companyID')
-      .sort({
-        [orderBy]: order == "asc" ? 1 : -1,
-      });
+        .populate("companyID")
+        .sort({
+          [orderBy]: order == "asc" ? 1 : -1,
+        });
       // console.log("proj:", proj);
       // res.send(proj);
     } catch (error) {
@@ -74,14 +72,19 @@ app.post("/new", async (req, res) => {
 });
 
 //{<--Get req for searching projectName & clientName-->}
+// {$and: [{"gender": "Male"}, {"age": 42}]}
 app.get("/search", async (req, res) => {
   const { q } = req.query;
-
+  // let companyID = req.companyID;
   try {
     let items = await Project.find({
-      $or: [{ projectname: { $regex: q } }, { clientName: { $regex: q } }],
-    })
-    .populate('companyID');
+      $and: [
+        { companyID: req.companyID },
+        {
+          $or: [{ projectname: { $regex: q } }, { clientName: { $regex: q } }],
+        },
+      ],
+    }).populate("companyID");
     res.send(items);
   } catch (e) {
     console.log(e.message);
@@ -109,8 +112,8 @@ app.delete("/:id", async (req, res) => {
 
 //{<-- Firing Patch req for projectID -->}
 app.patch("/:id", async (req, res) => {
-  let {id} = req.params
-console.log('id:', id)
+  let { id } = req.params;
+  console.log("id:", id);
   let updatedData = req.body;
 
   try {

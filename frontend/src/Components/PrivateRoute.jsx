@@ -4,7 +4,7 @@ import { AppContext } from '../context/Appcontext'
 
 export default function PrivateRoute({children}) {
     let {isAuth} = useContext(AppContext);
-    console.log(isAuth)
+    // console.log(isAuth)
 
 
     if(!isAuth){
