@@ -57,7 +57,7 @@ function MobileNav() {
           align="center"
           mt="5px"
         >
-         <Link to="/detail"></Link> Get Started It's Free
+         <Link to="/detail">Get Started It's Free</Link> 
         </Box>
     </MenuItem>
   </MenuList>

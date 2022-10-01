@@ -11,26 +11,26 @@ import {
   Spacer,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Logins } from "./auth/auth.action";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/Appcontext";
 function SignIn() {
   const [data, setData] = useState({});
-
+  const [isAuthPrivate,setIsAuth] = useContext(AppContext)
   const { token, isAuth } = useSelector((store) => store.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isAuth) {
-      console.log(token);
-      const token= token
-      // localStorage.setItem('token', JSON.stringify(token));
-      navigate("/dashboard");
+      setIsAuth(true)
+      localStorage.setItem('token', JSON.stringify(token));
+      navigate("/dashboard/track");
     }
-  }, [isAuth]);
+  }, [isAuth,token,setIsAuth]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,7 +39,7 @@ function SignIn() {
       [name]: value,
     });
   };
-  console.log(data);
+  // console.log(data);
   const handleClick = () => {
     dispatch(Logins(data));
   };

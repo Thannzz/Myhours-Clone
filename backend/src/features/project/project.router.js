@@ -13,7 +13,8 @@ app.get("/", async (req, res) => {
     try {
       proj = await Project.find({
         $and: [{ companyID: req.companyID }, { status: true }],
-      });
+      })
+      .populate('companyID');
       // res.send(proj);
     } catch (error) {
       res.status(500).send(error.message);
@@ -22,7 +23,8 @@ app.get("/", async (req, res) => {
     try {
       proj = await Project.find({
         $and: [{ companyID: req.companyID }, { status: false }],
-      });
+      })
+      .populate('companyID');
       // res.send(proj);
     } catch (error) {
       res.status(500).send(error.message);
@@ -30,6 +32,7 @@ app.get("/", async (req, res) => {
   } else {
     try {
       proj = await Project.find({ companyID: req.companyID })
+      .populate('companyID')
       .sort({
         [orderBy]: order == "asc" ? 1 : -1,
       });
@@ -77,7 +80,8 @@ app.get("/search", async (req, res) => {
   try {
     let items = await Project.find({
       $or: [{ projectname: { $regex: q } }, { clientName: { $regex: q } }],
-    });
+    })
+    .populate('companyID');
     res.send(items);
   } catch (e) {
     console.log(e.message);

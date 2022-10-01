@@ -22,29 +22,28 @@ function Allroutes() {
         <Route
           path="/dashboard/track"
           element={
-            // <PrivateRoute>
+            <PrivateRoute>
             <Dashboard />
-            // </PrivateRoute>
+             </PrivateRoute>
           }
         />
         <Route
           path="/dashboard/projects"
           element={
-            // <PrivateRoute>
+            <PrivateRoute>
 
             <Projects />
-            // </PrivateRoute>
+             </PrivateRoute>
           }
         />
         <Route
           path="/dashboard/reports"
           element={
-            // <PrivateRoute>
+            <PrivateRoute>
             <ReportsPage />
-            // </PrivateRoute>
+            </PrivateRoute>
           }
         />
-        <Route path="/task" element={<Tasks/>} />
       </Routes>
     </>
   );
