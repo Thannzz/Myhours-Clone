@@ -40,9 +40,10 @@ import { AppContext } from "../../context/Appcontext";
   /** API */
 }
 const getProjects = async (url) => {
+  let token = localStorage.getItem("token")
   let res = await axios.get(url, {
     headers: {
-      token: "6333e76d834c4636928012c6:singla@gmail.com :23104",
+      token: token,
     },
   });
   console.log(res);
@@ -51,13 +52,11 @@ const getProjects = async (url) => {
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
-  const [query, setQuery] = useState("");
   const url = "http://localhost:8080/projects";
 
   const { setProject } = useContext(AppContext);
   const onChange = (e) => {
-    setQuery(e.target.value);
-    console.log(query);
+    getProjects(`${url}/search?q=${e.target.value}`).then((res) => setProjects(res));
   };
 
   {
@@ -67,9 +66,6 @@ export default function Projects() {
   useEffect(() => {
     getProjects(url).then((res) => setProjects(res));
   }, []);
-  useEffect(() => {
-    getProjects(`${url}/search?q=${query}`).then((res) => setProjects(res));
-  }, [query]);
 
   return (
     <Flex>
@@ -135,8 +131,8 @@ export default function Projects() {
             <Tbody>
               {projects.map((item) => (
                 <Tr key={item.createdOn}>
-                  <Td onClick={() => setProject(item)}>
-                    <Link to="/task">{item.projectname}</Link>
+                  <Td onClick={() => setProject(item._id)}>
+                    <Link to="/dashboard/projects/tasks">{item.projectname}</Link>
                   </Td>
                   <Td>{item.clientName}</Td>
                   <Td>{item.hours}</Td>

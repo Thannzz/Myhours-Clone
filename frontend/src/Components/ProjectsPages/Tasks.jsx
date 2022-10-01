@@ -17,8 +17,8 @@ import { AppContext } from "../../context/Appcontext";
 import axios from "axios";
 import { useEffect } from "react";
 
-const getTasks = async (id) => {
-  let res = await axios.get("http://localhost:8080/tasks", {
+const getProject = async (id) => {
+  let res = await axios.get(`http://localhost:8080/projects/${id}`, {
     headers: {
       projectid: id,
     },
@@ -26,6 +26,13 @@ const getTasks = async (id) => {
   console.log(res.data);
   return res.data;
 };
+const getTasks = async(id) => {
+  let res = await axios.get("http://localhost:8080/tasks",{
+    headers: {
+      projectid: id
+    }
+  })
+}
 
 function Tasks() {
   const { project } = useContext(AppContext);
@@ -41,7 +48,10 @@ function Tasks() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    getTasks(project._id).then((res) => setTasks(res));
+    getProject(project).then((res) => setTasks(res));
+  }, [project]);
+  useEffect(()=>{
+    getTasks(project).then(res => setTasks(res))
   }, [newTask]);
 
   console.log(project);
@@ -63,6 +73,18 @@ function Tasks() {
     });
     console.log(res.data);
   };
+  const toggleTask = async(id, status)=>{
+    let res = await axios({
+      method : "PATCH",
+      headers: {
+        projectid: project._id,
+      },
+      data: { status: !status},
+      url: `http://localhost:8080/tasks/${id}`
+    })
+    console.log(res);
+  }
+
   return (
     <Flex>
       <Sidebar />
@@ -83,7 +105,7 @@ function Tasks() {
           {tasks.map((task) => (
             task.status? null : 
             <Flex key={task._id}>
-              <IconButton  icon={<CheckCircleIcon />} />
+              <IconButton onClick={()=>toggleTask(task._id, task.status)} icon={<CheckCircleIcon />} />
               <Text ml="10px" fontSize={"xl"}>Task: {task.task}</Text>
               <Spacer />
               <Text fontSize={"l"}>Budget: {task.budget} Hours</Text>
@@ -134,7 +156,7 @@ function Tasks() {
           {tasks.map((task) => (
             task.status? 
             <Flex key={task._id}>
-              <IconButton  icon={<CheckCircleIcon />} />
+              <IconButton onClick={()=>toggleTask(task._id, task.status)} icon={<CheckCircleIcon color={"green"} />} />
               <Text ml="10px" fontSize={"xl"}>Task: {task.task}</Text>
               <Spacer />
               <Text fontSize={"l"}>Budget: {task.budget} Hours</Text>

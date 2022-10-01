@@ -54,6 +54,14 @@ function Allroutes() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/dashboard/projects/tasks"
+          element={
+            <PrivateRoute>
+            <Tasks />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </>
   );

@@ -61,7 +61,7 @@ function ProjectForm() {
     });
 
     // console.log(res.data);
-    navigate();
+    navigate("/dashboard/projects");
   };
 
   return (

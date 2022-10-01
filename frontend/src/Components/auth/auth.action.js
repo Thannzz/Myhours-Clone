@@ -2,7 +2,7 @@ import { AUTH_POSTDATA, AUTH_SUCCESS } from "./auth.type";
 import axios from "axios";
 
 export const Logins = (data) => async (dispatch) => {
-  console.log(data);
+  console.log("action:",data);
   try {
     let response = await axios.post("http://localhost:8080/company/signin", data);
 
