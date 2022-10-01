@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import Logout from './Logout';
 
 export default function Sidebar({userName}) {
 
@@ -35,15 +36,15 @@ export default function Sidebar({userName}) {
   ];
 
   const box4 = [
-    { icon: "question-circle", title: "Help", location: "#" },
-    { icon: "phone", title: "Apps", location: "#" },
-    { icon: "bell", title: "What's new", location: "#" },
+    { icon: "question-circle", title: "Help", location: "#",isLogout:false },
+    { icon: "phone", title: "Apps", location: "#",isLogout:false },
+    { icon: "bell", title: "What's new", location: "#",isLogout:false },
     {
       icon: "person",
       rIcon: "chevron-up",
-      marginLeft: "115px",
+      marginLeft: "18px",
       title: userName,
-      location: "#",
+      location: "#",isLogout:true
     },
   ];
 
@@ -111,6 +112,7 @@ export default function Sidebar({userName}) {
         {box4.map((item,ind) => (
           <div key={ind}>
             <div className="items">
+              {  item.isLogout ? (<Logout userName={item.title}/>) :       
               <Link  style={{ width: "100%" }} to={item.location}>
                 {" "}
                 <i
@@ -123,6 +125,7 @@ export default function Sidebar({userName}) {
                   className={`bi-${item.rIcon}`}
                 ></i>
               </Link>
+}
             </div>
           </div>
         ))}

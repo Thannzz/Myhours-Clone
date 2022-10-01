@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/Appcontext";
 function SignIn() {
   const [data, setData] = useState({});
-  const { isAuthPrivate, setIsAuth } = useContext(AppContext);
+  const {setIsAuth } = useContext(AppContext);
   const { token, isAuth } = useSelector((store) => store.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -20,7 +20,7 @@ export default function Dashboard() {
 
   useEffect(()=>{
     let token = JSON.parse(localStorage.getItem("token"))
-    console.log("in track page----->",token)
+    // console.log("in track page----->",token)
     getUserName(token)
       .then((res) => {
         // console.log("user name--->", res.data[0].companyID.name);
