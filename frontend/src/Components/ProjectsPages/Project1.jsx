@@ -31,6 +31,8 @@ import box from "./Assets/cardboard-box.png";
 import axios from "axios";
 // import sidebar from "../Sidebar";
 import Sidebar from "../Sidebar";
+import { useContext } from "react";
+import { AppContext } from "../../context/Appcontext";
 // Todo : add search functionlity
 // Todo :
 
@@ -52,6 +54,7 @@ export default function Projects() {
   const [query, setQuery] = useState("");
   const url = "http://localhost:8080/projects";
 
+  const { setProject } = useContext(AppContext);
   const onChange = (e) => {
     setQuery(e.target.value);
     console.log(query);
@@ -73,7 +76,7 @@ export default function Projects() {
   return (
     <Flex>
       <Sidebar />
-      <Box m={"30px"} ml="14.5%" w="85%">
+      <Box m={"30px"}  w="85%">
         <Flex mb={"30px"}>
           <Text fontSize="4xl" fontWeight="500">
             Projects
@@ -134,7 +137,7 @@ export default function Projects() {
             <Tbody>
               {projects.map((item) => (
                 <Tr key={item.createdOn}>
-                  <Td>
+                  <Td onClick={()=>setProject(item)}>
                     <Link to="/task">{item.projectname}</Link>
                     </Td>
                   <Td>{item.clientName}</Td>

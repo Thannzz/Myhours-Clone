@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import Projects from "./ProjectsPages/Project1";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import Tasks from "./ProjectsPages/Tasks"
 
 function Allroutes() {
   return (

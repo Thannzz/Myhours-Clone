@@ -22,12 +22,10 @@ const taskSchema = new mongoose.Schema({
   },
   labourRate:{
     type:Number , 
-    required:true,
     min:0 
   },
   budget:{
     type:Number , 
-    required:true,
     min:0
   },
   status : {
