@@ -14,21 +14,21 @@ export default function Sidebar() {
     {
       icon: "bar-chart",
       rIcon: "bi-chevron-down",
-      marginLeft: "65px",
+      marginLeft: "30px",
       title: "Reports",
       location: "/dashboard/track",
     },
     {
       icon: "folder",
       rIcon: "bi-chevron-down",
-      marginLeft: "72px",
+      marginLeft: "37px",
       title: "Clients",
       location: "/dashboard/track",
     },
     {
       icon: "people",
       rIcon: "bi-chevron-down",
-      marginLeft: "82px",
+      marginLeft: "47px",
       title: "Team",
       location: "/dashboard/track",
     },
@@ -41,7 +41,7 @@ export default function Sidebar() {
     {
       icon: "person",
       rIcon: "chevron-up",
-      marginLeft: "41px",
+      marginLeft: "20px",
       title: "User Name",
       location: "#",
     },
@@ -115,12 +115,12 @@ export default function Sidebar() {
                 {" "}
                 <i
                   style={{ marginLeft: "20px", fontSize: "18px" }}
-                  class={` bi-${item.icon}`}
+                  className={` bi-${item.icon}`}
                 ></i>
                 <span className="title">{item.title}</span>{" "}
                 <i
                   style={{ marginLeft: `${item.marginLeft}`, fontSize: "15px" }}
-                  class={`bi-${item.rIcon}`}
+                  className={`bi-${item.rIcon}`}
                 ></i>
               </Link>
             </div>

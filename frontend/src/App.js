@@ -1,7 +1,5 @@
 import './App.css';
 import Allroutes from './Components/Allroutes';
-import Projects from './Components/ProjectsPages/Project1';
-import ProjectForm from './Components/ProjectsPages/ProjectForm';
 
 
 function App() {
@@ -9,6 +7,7 @@ function App() {
     <div className="App">
      <Allroutes />
      {/* <ProjectForm /> */}
+
     </div>
   );
 }
