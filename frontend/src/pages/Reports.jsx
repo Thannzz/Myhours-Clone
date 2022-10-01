@@ -5,44 +5,31 @@ import {
   Flex,
   Spacer,
   Text,
-  Input,
-  Select,
-  Image,
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
 import {
   TriangleDownIcon,
   DownloadIcon,
   ExternalLinkIcon,
-  CopyIcon,
   LinkIcon,
 } from "@chakra-ui/icons";
-import inbox from "../Components/ProjectsPages/Assets/inbox.png";
-import pen from "../Components/ProjectsPages/Assets/pen.png";
-import box from "../Components/ProjectsPages/Assets/cardboard-box.png";
-import axios from "axios";
-// import sidebar from "../Sidebar";
-import Sidebar from "../Components/Sidebar";
-// Todo : add search functionlity
-// Todo :
 
-{
-  /** API */
-}
+import axios from "axios";
+
+import Sidebar from "../Components/Sidebar";
+
 const getProjects = async (token) => {
   let res = await axios.get("http://localhost:8080/projects", {
     headers: {
       token: token,
     },
   });
-  // console.log(res);
   return res.data;
 };
 
@@ -51,7 +38,7 @@ export default function Reports() {
   const [amount, setAmount] = useState(0);
   const [budSpent, setBudSpent] = useState(0);
   const [projects, setProjects] = useState([]);
-  // const url = "http://localhost:8080/projects";
+
   let token = JSON.parse(localStorage.getItem("token"));
   useEffect(() => {
     getProjects(token).then((res) => setProjects(res));
@@ -63,7 +50,7 @@ export default function Reports() {
       setBudSpent((prev) => prev + item.budgetSpent);
     });
   }, [projects]);
-  console.log("tokrn :", token);
+  // console.log("tokrn :", token);
   return (
     <>
       <Flex w="100%" h="auto">

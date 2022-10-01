@@ -23,7 +23,6 @@ function SignIn() {
   const { token, isAuth } = useSelector((store) => store.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // console.log("appCOntext :", AppContext);
 
   useEffect(() => {
     if (isAuth) {

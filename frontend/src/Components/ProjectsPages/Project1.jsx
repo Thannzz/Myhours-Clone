@@ -33,19 +33,15 @@ import axios from "axios";
 import Sidebar from "../Sidebar";
 import { useContext } from "react";
 import { AppContext } from "../../context/Appcontext";
-// Todo : add search functionlity
-// Todo :
 
-{
-  /** API */
-}
 const getProjects = async (url) => {
-  let res = await axios.get(url,{
+  let token = JSON.parse(localStorage.getItem("token"));
+  let res = await axios.get(url, {
     headers: {
-      "token": "6333e76d834c4636928012c6:singla@gmail.com :23104"
-    }
+      token: token,
+    },
   });
-  console.log(res);
+  // console.log("token:", token);
   return res.data;
 };
 
@@ -56,10 +52,13 @@ export default function Projects() {
 
   const { setProject } = useContext(AppContext);
   const onChange = (e) => {
-    setQuery(e.target.value);
-    console.log(query);
+    // setQuery(e.target.value);
+    // console.log(query);
+    getProjects(`${url}/search?q=${e.target.value}`).then((res) =>
+      setProjects(res)
+    );
   };
-
+  console.log("Porj :", projects);
   {
     /** useEffetcts for component*/
   }
@@ -67,16 +66,11 @@ export default function Projects() {
   useEffect(() => {
     getProjects(url).then((res) => setProjects(res));
   }, []);
-  useEffect(() => {
-    getProjects(`${url}/search?q=${query}`).then((res) => setProjects(res));
-  }, [query]);
-
-  
 
   return (
     <Flex>
       <Sidebar />
-      <Box m={"30px"}  w="85%">
+      <Box m={"30px"} w="85%">
         <Flex mb={"30px"}>
           <Text fontSize="4xl" fontWeight="500">
             Projects
@@ -122,9 +116,7 @@ export default function Projects() {
             {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
             <Thead borderBottom={"1px solid lightGray"}>
               <Tr>
-                <Th>
-                  NAME
-                  </Th>
+                <Th>NAME</Th>
                 <Th>CLIENT</Th>
                 <Th>TOTAL HOURS</Th>
                 <Th>BILLABLE AMOUNT</Th>
@@ -137,15 +129,15 @@ export default function Projects() {
             <Tbody>
               {projects.map((item) => (
                 <Tr key={item.createdOn}>
-                  <Td onClick={()=>setProject(item)}>
+                  <Td onClick={() => setProject(item)}>
                     <Link to="/task">{item.projectname}</Link>
-                    </Td>
+                  </Td>
                   <Td>{item.clientName}</Td>
                   <Td>{item.hours}</Td>
                   <Td>{item.billingAmount}</Td>
                   <Td>{item.budgetSpent}</Td>
-                  <Td>{item.createdOn.slice(4,16)}</Td>
-                  <Td>{item.status? "Active":"inActive"}</Td>
+                  <Td>{item.createdOn.slice(4, 16)}</Td>
+                  <Td>{item.status ? "Active" : "inActive"}</Td>
                   <Td>
                     <Flex justifyContent={"space-evenly"}>
                       <Image src={pen} w="16px" />
