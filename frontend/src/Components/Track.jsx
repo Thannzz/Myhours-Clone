@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Dashboard.css";
-import { Box, Button, WrapItem } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import { Divider } from "@chakra-ui/react";
 import { useState } from "react";
 import HoursForm from "./HoursForm";
@@ -12,6 +12,7 @@ export default function Track() {
   const [thu, setThu] = useState("0:00");
   const [fri, setFri] = useState("0:00");
   const [totalBudget, setTotalBudget] = useState(0);
+  const [formArr,setformArr]  = useState([1])
   const budgetDates = [
     "Mon, 26 Sep",
     "Tue, 27 Sep",
@@ -45,6 +46,18 @@ export default function Track() {
   };
 
   let handleHours = {handleHours1,handleHours2,handleHours3,handleHours4,handleHours5};
+
+  const handleForm = ()=>{
+    console.log("handleform")
+    let temArr = formArr ;
+    temArr.push(temArr.length+1)
+    setformArr(temArr);
+
+  }
+
+
+
+  console.log(formArr)
 
   return (
     <div className="track">
@@ -144,8 +157,27 @@ export default function Track() {
         marginLeft="30px"
       />
       <Box w="97%" ml="30px" mt="5px">
-        <HoursForm totalBudget={totalBudget} handleHours={handleHours} />
+        { formArr&&formArr.map((i, ind) => (
+          <HoursForm key={ind} totalBudget={totalBudget} handleHours={handleHours} i={i}/>
+        ))}
       </Box>
+      <Text
+        onClick={handleForm}
+        fontSize="md"
+        display="flex"
+        alignItems="center"
+        color="skyblue"
+        cursor="pointer"
+        mt="5px"
+        ml="2%"
+      >
+        {" "}
+        <i
+          style={{ fontSize: "25px", paddingRight: "10px" }}
+          class="bi-plus"
+        ></i>{" "}
+        Add timesheet row
+      </Text>
     </div>
   );
 }
