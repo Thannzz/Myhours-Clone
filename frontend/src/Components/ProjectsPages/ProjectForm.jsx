@@ -14,7 +14,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ProjectForm() {
-  let token = JSON.parse(localStorage.getItem("token"))
+
+  let token = JSON.parse(localStorage.getItem("token"));
+
   const initialProject = {
     projectname: "",
     clientName: "",
@@ -28,30 +30,29 @@ function ProjectForm() {
     teamMembers: [],
   };
   const [project, setProject] = useState(initialProject);
-  const [team, setteam] = useState([]);
-  const [radio, setRadio] = useState("1");
+  const [team, setteam] = useState(initialProject.teamMembers);
+  // const [radio, setRadio] = useState("1");
   const navigate = useNavigate("/dashboard/project");
 
   const onChange = (e) => {
-    let { name: key, value } = e.target;
+    let { name: key, value, type } = e.target;
+
+    // console.log("type:", type, "value :", value, "name :", key);
+    setteam(e.target.value.split(","));
+    let val = key === "teamMembers" ? team : value;
+
     setProject({
       ...project,
-      [key]: value,
+      [key]: val,
     });
     // console.log(key, e.target.value);
   };
 
-  const setTeam = (e) => {
-    setteam(e.target.value.split(", "));
-  };
+  // const setTeam = (e) => {};
 
   const submit = async () => {
-    console.log(team);
-    setProject({
-      ...project,
-      teamMembers: team,
-      billing: true
-    })
+
+    
 
     let res = await axios({
       method: "POST",
@@ -62,8 +63,10 @@ function ProjectForm() {
       data: project,
     });
 
+
     // console.log(res.data);
     navigate("/dashboard/projects");
+
   };
 
   return (
@@ -87,8 +90,9 @@ function ProjectForm() {
         <Box>
           <FormLabel>Team members</FormLabel>
           <Input
+            name="teamMembers"
             placeholder="add team members i.e.: One, Two, Three..."
-            onChange={setTeam}
+            onChange={onChange}
           />
         </Box>
         <Box>
@@ -102,7 +106,11 @@ function ProjectForm() {
 
         <Box>
           <Text fontSize="3xl">Billable settings</Text>
-          <RadioGroup onChange={setRadio} value={radio}>
+          <RadioGroup
+            name="billing"
+            // onChange={onChange}
+            //  value={radio}
+          >
             <Stack gap={"20px"}>
               <Radio value="1">
                 <Box ml="20px">
