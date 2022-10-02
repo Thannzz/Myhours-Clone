@@ -27,10 +27,12 @@ const updateHours = async (id, hours, token) => {
     method: "PATCH",
     url: `http://localhost:8080/projects/${id}`,
     headers: { token: token },
-    data: { hours: hours },
+    data: { hours: hours  },
   });
   return res;
 };
+
+
 
 export default function HoursForm({ totalBudget, handleHours, i }) {
   const [projectNames, setProjectNames] = useState([]);
@@ -43,6 +45,7 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
     handleHours;
   let [alert, setAlert] = useState(false);
   let [isError, setIsError] = useState(false);
+  let [billAmt,setBillAmt] = useState(0)
 
   let handleGetName = () => {
     let token = JSON.parse(localStorage.getItem("token"));
@@ -50,8 +53,9 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
 
     getProjectsName(token)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setProjectNames(res.data);
+        // setBillAmt()
       })
       .catch((err) => {
         console.log(err);
