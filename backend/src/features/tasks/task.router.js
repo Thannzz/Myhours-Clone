@@ -21,8 +21,10 @@ app.get('/' , async (req  ,res) => {
 // <------- Post Request all the tasks ------->
 app.post('/' , async (req , res) => {
 console.log('req.body:', req.body);
+// ({$and: [{"gender": "Male"}, {"age": 42}]})
 try {
-        let task = await Task.findOne({ task:req.body.task});
+        let task = await Task.findOne({$and : [ { projectid:req.projectid }, { task:req.body.task}]});
+        console.log('task:', task)
         if (task) {
           return res.status(404).send("This Task already existing");
         }

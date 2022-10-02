@@ -3,6 +3,7 @@ const Project = require("./project.model");
 const app = express.Router();
 const projectMiddleware = require("../../middleware/projectMiddleware");
 
+
 app.use(projectMiddleware);
 //{ <--Getting  all the projects-->}
 app.get("/", async (req, res) => {
@@ -87,7 +88,6 @@ app.get("/:id", async (req, res) => {
 //{<-- Firing post req to create a new Proje-->}
 app.post("/new", async (req, res) => {
   let companyID = req.companyID;
-  // console.log(companyID);
   let { projectname, clientName } = req.body;
 
   try {
@@ -107,13 +107,6 @@ app.post("/new", async (req, res) => {
     res.status(500).send(e.message);
   }
 });
-
-//{<--Get req for searching projectName & clientName-->}
-// {$and: [{"gender": "Male"}, {"age": 42}]}
-// app.get("/search", async (req, res) => {
-//   // console.log("query:", req.query);
-//   // res.send("for queery params");
-// });
 
 //{<--Firing Delete req for an projectid-->}
 app.delete("/:id", async (req, res) => {
