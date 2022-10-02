@@ -12,10 +12,8 @@
 
 .sidebar {
   /* border: 1px solid orange; */
-  /* position: fixed; */
-  /* height: 695px; */
   width: 15.5%;
-  height: 100%;
+  height: 695px;
   border-left: 5px solid green;
   border-right: 0.5px solid gray;
   background-color: #f8f9fa;

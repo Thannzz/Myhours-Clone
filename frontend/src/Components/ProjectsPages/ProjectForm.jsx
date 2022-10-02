@@ -14,7 +14,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ProjectForm() {
+
   let token = JSON.parse(localStorage.getItem("token"));
+
   const initialProject = {
     projectname: "",
     clientName: "",
@@ -49,12 +51,8 @@ function ProjectForm() {
   // const setTeam = (e) => {};
 
   const submit = async () => {
-    console.log("team : ", team);
-    // setProject({
-    //   ...project,
-    //   teamMembers: team,
-    //   billing: radio === "2" ? true : false,
-    // });
+
+    
 
     let res = await axios({
       method: "POST",
@@ -65,8 +63,10 @@ function ProjectForm() {
       data: project,
     });
 
-    console.log("proj :", res);
-    navigate();
+
+    // console.log(res.data);
+    navigate("/dashboard/projects");
+
   };
 
   return (
@@ -120,6 +120,7 @@ function ProjectForm() {
                   </Text>
                 </Box>
               </Radio>
+
               <Radio value="2">
                 <Box ml="20px">
                   <Text fontSize="2xl">Task-based rate</Text>
@@ -129,6 +130,7 @@ function ProjectForm() {
                   </Text>
                 </Box>
               </Radio>
+
               <Radio value="3">
                 <Box ml="20px">
                   <Text fontSize="2xl">Project-based rate</Text>

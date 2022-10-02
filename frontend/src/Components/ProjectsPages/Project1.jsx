@@ -47,20 +47,22 @@ const getProjects = async (url) => {
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
-  const [query, setQuery] = useState("");
   const url = "http://localhost:8080/projects";
 
-  const { setProject } = useContext(AppContext);
   const onChange = (e) => {
+
     // setQuery(e.target.value);
     // console.log(query);
     getProjects(`${url}?q=${e.target.value}`).then((res) => setProjects(res));
+
   };
   console.log("Porj :", projects);
   {
     /** useEffetcts for component*/
   }
-
+  const onClick = (id)=>{
+    localStorage.setItem("projectId", id)
+  }
   useEffect(() => {
     getProjects(url).then((res) => setProjects(res));
   }, []);
@@ -128,9 +130,9 @@ export default function Projects() {
             </Thead>
             <Tbody>
               {projects.map((item) => (
-                <Tr key={item.createdOn}>
-                  <Td onClick={() => setProject(item)}>
-                    <Link to="/task">{item.projectname}</Link>
+                <Tr key={item._id}>
+                  <Td onClick={()=>onClick(item._id)}>
+                    <Link to="/dashboard/projects/tasks">{item.projectname}</Link>
                   </Td>
                   <Td>{item.clientName}</Td>
                   <Td>{item.hours}</Td>
