@@ -1,7 +1,7 @@
 import { Box, Text, Image, SimpleGrid, Heading } from "@chakra-ui/react";
 import Footer from "./Footer";
 import "./Home.css";
-import MobileNav from "./mobileNav";
+import MobileNav from "./MobileNav";
 import Navbar from "./Navbar";
 function Home() {
   return (
