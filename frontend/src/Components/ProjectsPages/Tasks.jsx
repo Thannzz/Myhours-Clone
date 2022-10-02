@@ -18,16 +18,16 @@ import Sidebar from "../Sidebar";
 import axios from "axios";
 import { useEffect } from "react";
 
-const getProject = async(id) => {
+const getProject = async (id) => {
   let token = JSON.parse(localStorage.getItem("token"));
   let res = await axios({
     method: "GET",
     url: `http://localhost:8080/projects/${id}`,
     headers: {
-      token: token
-    }
+      token: token,
+    },
   });
-  console.log("project:", res.data)
+  console.log("project:", res.data);
   return res.data;
 };
 const getTasks = async (id) => {
@@ -36,7 +36,7 @@ const getTasks = async (id) => {
       projectid: id,
     },
   });
-  
+
   return res.data;
 };
 
@@ -54,21 +54,18 @@ function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [project, setProject] = useState({});
   const [team, setteam] = useState([]);
-  const [ status, setStatus ] = useState(false);
+  const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    getProject(projectId).then((res) =>{
-      setteam(res.teamMembers)
+    getProject(projectId).then((res) => {
+      setteam(res.teamMembers);
       setProject(res);
     });
   }, [projectId]);
 
   useEffect(() => {
-
     getTasks(projectId).then((res) => setTasks(res));
-
   }, [newTask, status]);
-
 
   const onChange = (e) => {
     const { name: key, value } = e.target;
@@ -87,7 +84,7 @@ function Tasks() {
       },
       url: "http://localhost:8080/tasks",
     });
-    setStatus(!status)
+    setStatus(!status);
     console.log(res.data);
   };
 
@@ -100,7 +97,7 @@ function Tasks() {
       data: { status: !status },
       url: `http://localhost:8080/tasks/${id}`,
     });
-    setStatus(!status)
+    setStatus(!status);
     console.log(res);
   };
 
@@ -149,7 +146,6 @@ function Tasks() {
               onChange={onChange}
             />
 
-
             <Select
               border={"none"}
               mb="20px"
@@ -158,11 +154,12 @@ function Tasks() {
               onChange={onChange}
               placeholder="Assigned to"
             >
-              {team.map(member => (
-                <option key={member} value={member}>{member}</option>
+              {team.map((member) => (
+                <option key={member} value={member}>
+                  {member}
+                </option>
               ))}
             </Select>
-
 
             {project.billing ? (
               <Input

@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/Appcontext";
 function SignIn() {
   const [data, setData] = useState({});
-  const {setIsAuth } = useContext(AppContext);
+  const { setIsAuth } = useContext(AppContext);
   const { token, isAuth } = useSelector((store) => store.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function SignIn() {
     if (isAuth) {
       setIsAuth(true);
       localStorage.setItem("token", JSON.stringify(token));
-      navigate("/dashboard/track");
+      navigate("/dashboard/projects");
     }
   }, [isAuth, token, setIsAuth]);
 
