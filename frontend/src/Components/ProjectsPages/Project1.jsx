@@ -33,20 +33,16 @@ import axios from "axios";
 import Sidebar from "../Sidebar";
 import { useContext } from "react";
 import { AppContext } from "../../context/Appcontext";
-// Todo : add search functionlity
-// Todo :
 
-{
-  /** API */
-}
 const getProjects = async (url) => {
-  let token = localStorage.getItem("token")
+
+  let token = JSON.parse(localStorage.getItem("token"));
   let res = await axios.get(url, {
     headers: {
       token: token,
     },
   });
-  console.log(res);
+  // console.log("token:", token);
   return res.data;
 };
 
@@ -54,15 +50,16 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const url = "http://localhost:8080/projects";
 
-  const { setProject } = useContext(AppContext);
   const onChange = (e) => {
     getProjects(`${url}/search?q=${e.target.value}`).then((res) => setProjects(res));
   };
-
+  console.log("Porj :", projects);
   {
     /** useEffetcts for component*/
   }
-
+  const onClick = (id)=>{
+    localStorage.setItem("projectId", id)
+  }
   useEffect(() => {
     getProjects(url).then((res) => setProjects(res));
   }, []);
@@ -130,8 +127,8 @@ export default function Projects() {
             </Thead>
             <Tbody>
               {projects.map((item) => (
-                <Tr key={item.createdOn}>
-                  <Td onClick={() => setProject(item._id)}>
+                <Tr key={item._id}>
+                  <Td onClick={()=>onClick(item._id)}>
                     <Link to="/dashboard/projects/tasks">{item.projectname}</Link>
                   </Td>
                   <Td>{item.clientName}</Td>

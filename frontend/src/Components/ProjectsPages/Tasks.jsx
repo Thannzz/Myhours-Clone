@@ -10,6 +10,7 @@ import {
   Input,
   Divider,
   IconButton,
+  Select,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import Sidebar from "../Sidebar";
@@ -18,9 +19,10 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const getProject = async (id) => {
+  let token = localStorage.getItem("token")
   let res = await axios.get(`http://localhost:8080/projects/${id}`, {
     headers: {
-      projectid: id,
+      token: token,
     },
   });
   console.log(res.data);
@@ -31,30 +33,32 @@ const getTasks = async(id) => {
     headers: {
       projectid: id
     }
-  })
+  });
+  return res.data;
 }
 
 function Tasks() {
-  const { project } = useContext(AppContext);
+  const projectId = localStorage.getItem("projectId");
   const initialTask = {
     task: "",
     assignedTo: "",
     description: "",
-    projectid: project._id,
+    projectid: projectId,
     labourRate: 0,
     budget: 0,
   };
   const [newTask, setNewTask] = useState(initialTask);
   const [tasks, setTasks] = useState([]);
+  const [ project, setProject ] = useState({});
 
   useEffect(() => {
-    getProject(project).then((res) => setTasks(res));
-  }, [project]);
+    getProject(projectId).then((res) => setProject(res));
+  }, [projectId]);
   useEffect(()=>{
-    getTasks(project).then(res => setTasks(res))
+    getTasks(projectId).then(res => setTasks(res))
   }, [newTask]);
 
-  console.log(project);
+  console.log(projectId);
   const onChange = (e) => {
     const { name: key, value } = e.target;
     setNewTask({
@@ -67,7 +71,7 @@ function Tasks() {
       method: "POST",
       data: newTask,
       headers: {
-        projectid: project._id,
+        projectid: projectId,
       },
       url: "http://localhost:8080/tasks",
     });
@@ -77,14 +81,13 @@ function Tasks() {
     let res = await axios({
       method : "PATCH",
       headers: {
-        projectid: project._id,
+        projectid: projectId,
       },
       data: { status: !status},
       url: `http://localhost:8080/tasks/${id}`
     })
     console.log(res);
   }
-
   return (
     <Flex>
       <Sidebar />
@@ -101,17 +104,17 @@ function Tasks() {
           Task List
         </Text>
         <Divider m="10px 0px" />
-        <Stack gap="5px" w={"40%"}>
+        <Stack gap="5px">
           {tasks.map((task) => (
             task.status? null : 
-            <Flex key={task._id}>
+            <Flex key={task._id} w="100%">
               <IconButton onClick={()=>toggleTask(task._id, task.status)} icon={<CheckCircleIcon />} />
               <Text ml="10px" fontSize={"xl"}>Task: {task.task}</Text>
               <Spacer />
               <Text fontSize={"l"}>Budget: {task.budget} Hours</Text>
             </Flex>
           ))}
-          <box bgColor="#EDF2F7">
+          <Box bgColor="#EDF2F7" border={"1px solid"} width={"60%"}>
             <Text color={"blue"}>
               <SmallAddIcon /> Add new Task
             </Text>
@@ -121,12 +124,11 @@ function Tasks() {
               placeholder="Add your task..."
               onChange={onChange}
             />
-            <Input
-              mb={"10px"}
-              name="assignedTo"
-              placeholder="Assigned to"
-              onChange={onChange}
-            />
+            <Select name="assignedTo" onChange={onChange} placeholder="Assigned to">
+              {/* {project.teamMembers.map(member => (
+                <option value={member}>{member}</option>
+              ))} */}
+            </Select>
             {project.billing ? 
               <Input
                 mb={"10px"}
@@ -152,7 +154,7 @@ function Tasks() {
             <Button border={"1px solid"} bg="none" onClick={createTask}>
               Add This Task
             </Button>
-          </box>
+          </Box>
           {tasks.map((task) => (
             task.status? 
             <Flex key={task._id}>
