@@ -10,41 +10,66 @@ import {
   Input,
   Divider,
   IconButton,
+  Select,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import Sidebar from "../Sidebar";
-import { AppContext } from "../../context/Appcontext";
+// import { AppContext } from "../../context/Appcontext";
 import axios from "axios";
 import { useEffect } from "react";
 
+const getProject = async(id) => {
+  let token = JSON.parse(localStorage.getItem("token"));
+  let res = await axios({
+    method: "GET",
+    url: `http://localhost:8080/projects/${id}`,
+    headers: {
+      token: token
+    }
+  });
+  console.log("project:", res.data)
+  return res.data;
+};
 const getTasks = async (id) => {
   let res = await axios.get("http://localhost:8080/tasks", {
     headers: {
       projectid: id,
     },
   });
-  console.log(res.data);
+  
   return res.data;
 };
 
 function Tasks() {
-  const { project } = useContext(AppContext);
+  const projectId = localStorage.getItem("projectId");
   const initialTask = {
     task: "",
     assignedTo: "",
     description: "",
-    projectid: project._id,
+    projectid: projectId,
     labourRate: 0,
     budget: 0,
   };
   const [newTask, setNewTask] = useState(initialTask);
   const [tasks, setTasks] = useState([]);
+  const [project, setProject] = useState({});
+  const [team, setteam] = useState([]);
+  const [ status, setStatus ] = useState(false);
 
   useEffect(() => {
-    getTasks(project._id).then((res) => setTasks(res));
-  }, [newTask]);
+    getProject(projectId).then((res) =>{
+      setteam(res.teamMembers)
+      setProject(res);
+    });
+  }, [projectId]);
 
-  console.log(project);
+  useEffect(() => {
+
+    getTasks(projectId).then((res) => setTasks(res));
+
+  }, [newTask, status]);
+
+
   const onChange = (e) => {
     const { name: key, value } = e.target;
     setNewTask({
@@ -52,95 +77,140 @@ function Tasks() {
       [key]: value,
     });
   };
+
   const createTask = async () => {
     let res = await axios({
       method: "POST",
       data: newTask,
       headers: {
-        projectid: project._id,
+        projectid: projectId,
       },
       url: "http://localhost:8080/tasks",
     });
+    setStatus(!status)
     console.log(res.data);
   };
+
+  const toggleTask = async (id, status) => {
+    let res = await axios({
+      method: "PATCH",
+      headers: {
+        projectid: projectId,
+      },
+      data: { status: !status },
+      url: `http://localhost:8080/tasks/${id}`,
+    });
+    setStatus(!status)
+    console.log(res);
+  };
+
   return (
     <Flex>
       <Sidebar />
-      <Box p="0 10%">
+      <Box p="0 10%" w={"60%"}>
         <Flex mb={"50px"} alignItems={"baseline"} gap="20px">
-            <Text fontWeight={"500"} fontSize={"4xl"}>
-              {project.projectname}
-            </Text>
-            <Text fontSize={"xl"} color="gray">
-              {project.clientName}
-            </Text>
+          <Text fontWeight={"500"} fontSize={"4xl"}>
+            {project.projectname}
+          </Text>
+          <Text fontSize={"xl"} color="gray">
+            {project.clientName}
+          </Text>
         </Flex>
         <Text fontSize={"3xl"} fontWeight="500">
           Task List
         </Text>
         <Divider m="10px 0px" />
-        <Stack gap="5px" w={"40%"}>
-          {tasks.map((task) => (
-            task.status? null : 
-            <Flex key={task._id}>
-              <IconButton  icon={<CheckCircleIcon />} />
-              <Text ml="10px" fontSize={"xl"}>Task: {task.task}</Text>
-              <Spacer />
-              <Text fontSize={"l"}>Budget: {task.budget} Hours</Text>
-            </Flex>
-          ))}
-          <box bgColor="#EDF2F7">
+        <Stack gap="5px" w="100%">
+          {tasks.map((task) =>
+            task.status ? null : (
+              <Flex key={task._id}>
+                <IconButton
+                  onClick={() => toggleTask(task._id, task.status)}
+                  icon={<CheckCircleIcon />}
+                />
+                <Text ml="10px" fontSize={"xl"}>
+                  Task: {task.task}
+                </Text>
+                <Spacer />
+                <Text fontSize={"l"}>Budget: {task.budget} Hours</Text>
+              </Flex>
+            )
+          )}
+          <Box bgColor="#EDF2F7" width={"60%"}>
             <Text color={"blue"}>
               <SmallAddIcon /> Add new Task
             </Text>
             <Input
-              mb={"10px"}
+              border={"none"}
+              borderBottom={"2px solid gray"}
+              mb={"20px"}
               name="task"
               placeholder="Add your task..."
               onChange={onChange}
             />
-            <Input
-              mb={"10px"}
+
+
+            <Select
+              border={"none"}
+              mb="20px"
+              borderBottom={"2px solid gray"}
               name="assignedTo"
-              placeholder="Assigned to"
               onChange={onChange}
-            />
-            {project.billing ? 
+              placeholder="Assigned to"
+            >
+              {team.map(member => (
+                <option key={member} value={member}>{member}</option>
+              ))}
+            </Select>
+
+
+            {project.billing ? (
               <Input
-                mb={"10px"}
+                border={"none"}
+                borderBottom={"2px solid gray"}
+                mb={"20px"}
                 name="labourRate"
                 placeholder="Billable Rate"
                 onChange={onChange}
               />
-             : null}
-            {project.billing ? 
+            ) : null}
+            {project.billing ? (
               <Input
-                mb={"10px"}
+                border={"none"}
+                borderBottom={"2px solid gray"}
+                mb={"20px"}
                 name="budget"
                 placeholder="Budget in Hours"
                 onChange={onChange}
               />
-             : null}
+            ) : null}
             <Input
-              mb={"10px"}
+              border={"none"}
+              borderBottom={"2px solid gray"}
+              mb={"20px"}
               name="description"
               placeholder="Description"
               onChange={onChange}
             />
-            <Button border={"1px solid"} bg="none" onClick={createTask}>
+            <Button bg="none" color={"green"} onClick={createTask}>
               Add This Task
             </Button>
-          </box>
-          {tasks.map((task) => (
-            task.status? 
-            <Flex key={task._id}>
-              <IconButton  icon={<CheckCircleIcon />} />
-              <Text ml="10px" fontSize={"xl"}>Task: {task.task}</Text>
-              <Spacer />
-              <Text fontSize={"l"}>Budget: {task.budget} Hours</Text>
-            </Flex>
-            : null
-          ))}
+          </Box>
+          {tasks.map((task) =>
+            task.status ? (
+              <Flex key={task._id}>
+                <IconButton
+                  onClick={() => toggleTask(task._id, task.status)}
+                  icon={<CheckCircleIcon color={"green"} />}
+                />
+                <Text ml="10px" fontSize={"xl"}>
+                  Task: {task.task}
+                </Text>
+                <Spacer />
+                <Text fontSize={"l"}>Budget: {task.budget} Hours</Text>
+              </Flex>
+            ) : null
+          )}
         </Stack>
       </Box>
     </Flex>

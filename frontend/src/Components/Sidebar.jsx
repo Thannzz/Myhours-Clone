@@ -53,7 +53,7 @@ export default function Sidebar({userName}) {
       <div className="box1">
         <i
           style={{ marginLeft: "20px", fontSize: "20px" }}
-          class="bi bi-grid-3x3-gap-fill"
+          className="bi bi-grid-3x3-gap-fill"
         ></i>
         <img
           className="logo"
@@ -69,14 +69,14 @@ export default function Sidebar({userName}) {
               {" "}
               <i
                 style={{ marginLeft: "20px", fontSize: "18px" }}
-                class={`bi-${item.icon}`}
+                className={`bi-${item.icon}`}
               >
                 {" "}
               </i>
               <span className="title">{item.title}</span>{" "}
               <i
                 style={{ marginLeft: `${item.marginLeft}`, fontSize: "13px" }}
-                class={`${item.rIcon}`}
+                className={`${item.rIcon}`}
               >
                 {" "}
               </i>
