@@ -35,7 +35,6 @@ import { useContext } from "react";
 import { AppContext } from "../../context/Appcontext";
 
 const getProjects = async (url) => {
-
   let token = JSON.parse(localStorage.getItem("token"));
   let res = await axios.get(url, {
     headers: {
@@ -51,7 +50,11 @@ export default function Projects() {
   const url = "http://localhost:8080/projects";
 
   const onChange = (e) => {
-    getProjects(`${url}/search?q=${e.target.value}`).then((res) => setProjects(res));
+
+    // setQuery(e.target.value);
+    // console.log(query);
+    getProjects(`${url}?q=${e.target.value}`).then((res) => setProjects(res));
+
   };
   console.log("Porj :", projects);
   {
