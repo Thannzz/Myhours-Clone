@@ -1,52 +1,66 @@
 import React from "react";
 import "../styles/Dashboard.css";
 
-import { Box, Button, WrapItem } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
+
 import { Divider } from "@chakra-ui/react";
 import { useState } from "react";
 import HoursForm from "./HoursForm";
 
+export default function Track({ userName }) {
 
-export default function Track() {
   const [mon, setMon] = useState("0:00");
   const [tue, setTue] = useState("0:00");
   const [wed, setWed] = useState("0:00");
   const [thu, setThu] = useState("0:00");
   const [fri, setFri] = useState("0:00");
   const [totalBudget, setTotalBudget] = useState(0);
+  const [formArr, setformArr] = useState([1]);
   const budgetDates = [
-    "Mon, 26 Sep",
-    "Tue, 27 Sep",
-    "Wed, 28 Sep",
-    "Thu, 29 Sep",
-    "Fri, 30 Sep",
+    "Mon, day-1",
+    "Tue, day-2",
+    "Wed, day-3",
+    "Thu, day-4",
+    "Fri, day-5",
   ];
   const budgetDatesValues = [mon, tue, wed, thu, fri];
 
-
   let handleHours1 = (value) => {
     setMon(value);
-    setTotalBudget((pre) => pre + +(value));
+    setTotalBudget((pre) => pre + +value);
   };
 
   let handleHours2 = (value) => {
     setTue(value);
-    setTotalBudget((pre) => pre + +(value));
+    setTotalBudget((pre) => pre + +value);
   };
   let handleHours3 = (value) => {
     setWed(value);
-    setTotalBudget((pre) => pre + +(value));
+    setTotalBudget((pre) => pre + +value);
   };
   let handleHours4 = (value) => {
     setThu(value);
-    setTotalBudget((pre) => pre + +(value));
+    setTotalBudget((pre) => pre + +value);
   };
   let handleHours5 = (value) => {
     setFri(value);
-    setTotalBudget((pre) => pre + +(value));
+    setTotalBudget((pre) => pre + +value);
   };
 
-  let handleHours = {handleHours1,handleHours2,handleHours3,handleHours4,handleHours5};
+  let handleHours = {
+    handleHours1,
+    handleHours2,
+    handleHours3,
+    handleHours4,
+    handleHours5,
+  };
+
+  const handleForm = () => {
+    let temArr = formArr;
+    temArr.push(temArr.length + 1);
+    setformArr(temArr);
+  };
+
 
   return (
     <div className="track">
@@ -96,7 +110,9 @@ export default function Track() {
             style={{ fontSize: "23px", marginLeft: "5px" }}
             class="bi-person"
           ></i>
-          <div style={{ width: "82%" }}></div>
+          <div style={{ width: "82%" }}>
+            <span style={{ margin: "auto", marginLeft: "5%" }}>{userName}</span>
+          </div>
           <i style={{ fontSize: "15px" }} class="bi-caret-right-fill"></i>
         </div>
 
@@ -146,8 +162,33 @@ export default function Track() {
         marginLeft="30px"
       />
       <Box w="97%" ml="30px" mt="5px">
-        <HoursForm totalBudget={totalBudget} handleHours={handleHours} />
+        {formArr &&
+          formArr.map((i, ind) => (
+            <HoursForm
+              key={ind}
+              totalBudget={totalBudget}
+              handleHours={handleHours}
+              i={i}
+            />
+          ))}
       </Box>
+      <Text
+        onClick={handleForm}
+        fontSize="md"
+        display="flex"
+        alignItems="center"
+        color="skyblue"
+        cursor="pointer"
+        mt="5px"
+        ml="2%"
+      >
+        {" "}
+        <i
+          style={{ fontSize: "25px", paddingRight: "10px" }}
+          class="bi-plus"
+        ></i>{" "}
+        Add timesheet row
+      </Text>
     </div>
   );
 }

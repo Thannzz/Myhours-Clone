@@ -17,7 +17,7 @@ function AuthContextProvider(props) {
   const [isAuthData, setisAuthData] = useState(initial);
 
   return (
-    <AuthContext.Provider value={{isAuthData,setisAuthData}}>
+    <AuthContext.Provider value={{ isAuthData, setisAuthData }}>
       {props.children}
     </AuthContext.Provider>
   );

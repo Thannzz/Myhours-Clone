@@ -5,44 +5,31 @@ import {
   Flex,
   Spacer,
   Text,
-  Input,
-  Select,
-  Image,
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
 import {
   TriangleDownIcon,
   DownloadIcon,
   ExternalLinkIcon,
-  CopyIcon,
   LinkIcon,
 } from "@chakra-ui/icons";
-import inbox from "../Components/ProjectsPages/Assets/inbox.png";
-import pen from "../Components/ProjectsPages/Assets/pen.png";
-import box from "../Components/ProjectsPages/Assets/cardboard-box.png";
-import axios from "axios";
-// import sidebar from "../Sidebar";
-import Sidebar from "../Components/Sidebar";
-// Todo : add search functionlity
-// Todo :
 
-{
-  /** API */
-}
-const getProjects = async (url) => {
-  let res = await axios.get(url, {
+import axios from "axios";
+
+import Sidebar from "../Components/Sidebar";
+
+const getProjects = async (token) => {
+  let res = await axios.get("http://localhost:8080/projects", {
     headers: {
-      token: "6333e76d834c4636928012c6:singla@gmail.com :23104",
+      token: token,
     },
   });
-  // console.log(res);
   return res.data;
 };
 
@@ -51,10 +38,10 @@ export default function Reports() {
   const [amount, setAmount] = useState(0);
   const [budSpent, setBudSpent] = useState(0);
   const [projects, setProjects] = useState([]);
-  const url = "http://localhost:8080/projects";
 
+  let token = JSON.parse(localStorage.getItem("token"));
   useEffect(() => {
-    getProjects(url).then((res) => setProjects(res));
+    getProjects(token).then((res) => setProjects(res));
   }, []);
   useEffect(() => {
     projects.map((item) => {
@@ -63,15 +50,13 @@ export default function Reports() {
       setBudSpent((prev) => prev + item.budgetSpent);
     });
   }, [projects]);
-  // console.log(budSpent);
+  // console.log("tokrn :", token);
   return (
     <>
       <Flex w="100%" h="auto">
-        <Box>
-          <Sidebar />
-        </Box>
+        <Sidebar />
 
-        <Box ml="15%" p="1rem" height="auto" w="100%">
+        <Box p="1rem" height="auto" w="100%">
           <Flex mb="1rem">
             <Text fontSize="4xl" fontWeight="500">
               Dashboard

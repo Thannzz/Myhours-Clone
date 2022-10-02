@@ -11,13 +11,15 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProjectForm() {
+  let token = JSON.parse(localStorage.getItem("token"))
   const initialProject = {
     projectname: "",
     clientName: "",
     description: "",
-    billing: false,
+    billing: true,
     hours: 0,
     billingAmount: 0,
     budgetSpent: 0,
@@ -28,6 +30,7 @@ function ProjectForm() {
   const [project, setProject] = useState(initialProject);
   const [team, setteam] = useState([]);
   const [radio, setRadio] = useState("1");
+  const navigate = useNavigate("/dashboard/project");
 
   const onChange = (e) => {
     let { name: key, value } = e.target;
@@ -43,21 +46,24 @@ function ProjectForm() {
   };
 
   const submit = async () => {
+    console.log(team);
     setProject({
       ...project,
       teamMembers: team,
-      billing: radio === "2" ? true : false,
-    });
+      billing: true
+    })
 
     let res = await axios({
       method: "POST",
       headers: {
-        token: "6333e691834c4636928012bf:thaa@gmail.com :qwerty",
+        token: token,
       },
       url: "http://localhost:8080/projects/new",
       data: project,
-    }).then((res) => console.log(res.data));
+    });
+
     // console.log(res.data);
+    navigate("/dashboard/projects");
   };
 
   return (
@@ -106,6 +112,7 @@ function ProjectForm() {
                   </Text>
                 </Box>
               </Radio>
+
               <Radio value="2">
                 <Box ml="20px">
                   <Text fontSize="2xl">Task-based rate</Text>
@@ -115,6 +122,7 @@ function ProjectForm() {
                   </Text>
                 </Box>
               </Radio>
+
               <Radio value="3">
                 <Box ml="20px">
                   <Text fontSize="2xl">Project-based rate</Text>

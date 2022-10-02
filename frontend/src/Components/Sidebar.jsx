@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import Logout from './Logout';
 
-export default function Sidebar() {
+export default function Sidebar({userName}) {
 
 
   const box2 = [
@@ -14,36 +15,36 @@ export default function Sidebar() {
     {
       icon: "bar-chart",
       rIcon: "bi-chevron-down",
-      marginLeft: "30px",
+      marginLeft: "55px",
       title: "Reports",
-      location: "/dashboard/track",
+      location: "/dashboard/reports",
     },
     {
       icon: "folder",
       rIcon: "bi-chevron-down",
-      marginLeft: "37px",
+      marginLeft: "62px",
       title: "Clients",
-      location: "/dashboard/track",
+      location: "#",
     },
     {
       icon: "people",
       rIcon: "bi-chevron-down",
-      marginLeft: "47px",
+      marginLeft: "72px",
       title: "Team",
-      location: "/dashboard/track",
+      location: "#",
     },
   ];
 
   const box4 = [
-    { icon: "question-circle", title: "Help", location: "#" },
-    { icon: "phone", title: "Apps", location: "#" },
-    { icon: "bell", title: "What's new", location: "#" },
+    { icon: "question-circle", title: "Help", location: "#",isLogout:false },
+    { icon: "phone", title: "Apps", location: "#",isLogout:false },
+    { icon: "bell", title: "What's new", location: "#",isLogout:false },
     {
       icon: "person",
       rIcon: "chevron-up",
-      marginLeft: "20px",
-      title: "User Name",
-      location: "#",
+      marginLeft: "18px",
+      title: userName,
+      location: "#",isLogout:true
     },
   ];
 
@@ -52,7 +53,7 @@ export default function Sidebar() {
       <div className="box1">
         <i
           style={{ marginLeft: "20px", fontSize: "20px" }}
-          class="bi bi-grid-3x3-gap-fill"
+          className="bi bi-grid-3x3-gap-fill"
         ></i>
         <img
           className="logo"
@@ -62,20 +63,20 @@ export default function Sidebar() {
       </div>
 
       <div className="box2">
-        {box2.map((item) => (
-          <div className="items">
+        {box2.map((item,ind) => (
+          <div key={ind} className="items">
             <Link style={{ width: "100%" }} to={item.location}>
               {" "}
               <i
                 style={{ marginLeft: "20px", fontSize: "18px" }}
-                class={`bi-${item.icon}`}
+                className={`bi-${item.icon}`}
               >
                 {" "}
               </i>
               <span className="title">{item.title}</span>{" "}
               <i
-                style={{ marginLeft: `${item.marginLeft}`, fontSize: "15px" }}
-                class={`${item.rIcon}`}
+                style={{ marginLeft: `${item.marginLeft}`, fontSize: "13px" }}
+                className={`${item.rIcon}`}
               >
                 {" "}
               </i>
@@ -108,9 +109,10 @@ export default function Sidebar() {
       </div>
 
       <div className="box4">
-        {box4.map((item) => (
-          <div key={item.title}>
+        {box4.map((item,ind) => (
+          <div key={ind}>
             <div className="items">
+              {  item.isLogout ? (<Logout userName={item.title}/>) :       
               <Link  style={{ width: "100%" }} to={item.location}>
                 {" "}
                 <i
@@ -119,10 +121,11 @@ export default function Sidebar() {
                 ></i>
                 <span className="title">{item.title}</span>{" "}
                 <i
-                  style={{ marginLeft: `${item.marginLeft}`, fontSize: "15px" }}
+                  style={{ marginLeft: `${item.marginLeft}`, fontSize: "13px" }}
                   className={`bi-${item.rIcon}`}
                 ></i>
               </Link>
+}
             </div>
           </div>
         ))}

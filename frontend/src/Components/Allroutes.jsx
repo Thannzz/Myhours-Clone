@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import ReportsPage from "../pages/ReportsPage";
@@ -6,8 +7,10 @@ import DetailPage from "./DetailPage";
 import Home from "./Home";
 import PrivateRoute from "./PrivateRoute";
 import Projects from "./ProjectsPages/Project1";
+import ProjectForm from "./ProjectsPages/ProjectForm"
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import Tasks from "./ProjectsPages/Tasks"
 
 function Allroutes() {
   return (
@@ -20,25 +23,43 @@ function Allroutes() {
         <Route
           path="/dashboard/track"
           element={
-            // <PrivateRoute>
+            <PrivateRoute>
             <Dashboard />
-            // </PrivateRoute>
+             </PrivateRoute>
           }
         />
         <Route
           path="/dashboard/projects"
           element={
-            // <PrivateRoute>
+            <PrivateRoute>
+
             <Projects />
-            // </PrivateRoute>
+             </PrivateRoute>
+          }
+        />
+        <Route
+          path="/projectCreation"
+          element={
+            <PrivateRoute>
+
+            <ProjectForm />
+              </PrivateRoute>
           }
         />
         <Route
           path="/dashboard/reports"
           element={
-            // <PrivateRoute>
+            <PrivateRoute>
             <ReportsPage />
-            // </PrivateRoute>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard/projects/tasks"
+          element={
+            <PrivateRoute>
+            <Tasks />
+            </PrivateRoute>
           }
         />
       </Routes>

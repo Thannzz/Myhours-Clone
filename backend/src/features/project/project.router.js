@@ -7,15 +7,14 @@ const projectMiddleware = require("../../middleware/projectMiddleware");
 app.use(projectMiddleware);
 //{ <--Getting  all the projects-->}
 app.get("/", async (req, res) => {
-  const { status, orderBy = "status", order = "asc" } = req.query;
+  const { status, orderBy = "status", order = "asc", q } = req.query;
   // console.log("status:", req.query);
   let proj;
   if (status && status === "active") {
     try {
       proj = await Project.find({
         $and: [{ companyID: req.companyID }, { status: true }],
-      })
-      .populate('companyID');
+      }).populate("companyID");
       // res.send(proj);
     } catch (error) {
       res.status(500).send(error.message);
@@ -24,19 +23,38 @@ app.get("/", async (req, res) => {
     try {
       proj = await Project.find({
         $and: [{ companyID: req.companyID }, { status: false }],
-      })
-      .populate('companyID');
+      }).populate("companyID");
       // res.send(proj);
     } catch (error) {
       res.status(500).send(error.message);
     }
+  } else if (q) {
+    const { q } = req.query;
+    let companyID = req.companyID;
+    try {
+      let items = await Project.find({
+        $and: [
+          { companyID: req.companyID },
+          {
+            $or: [
+              { projectname: { $regex: q } },
+              { clientName: { $regex: q } },
+            ],
+          },
+        ],
+      }).populate("companyID");
+      res.send(items);
+    } catch (e) {
+      // console.log(e.message);
+      res.status(500).send(e);
+    }
   } else {
     try {
       proj = await Project.find({ companyID: req.companyID })
-      .populate('companyID')
-      .sort({
-        [orderBy]: order == "asc" ? 1 : -1,
-      });
+        .populate("companyID")
+        .sort({
+          [orderBy]: order == "asc" ? 1 : -1,
+        });
       // console.log("proj:", proj);
       // res.send(proj);
     } catch (error) {
@@ -47,8 +65,25 @@ app.get("/", async (req, res) => {
   res.send(proj);
 });
 
-//{ <--Getting  all the projects based on status -->}
-// app.get('/')
+//Get api for a particulat proj ID
+app.get("/:id", async (req, res) => {
+  let { id } = req.params;
+
+  await Project.findById(id)
+    .populate("companyID")
+    .then((user) => {
+      if (!user) {
+        res.status(404).send(id + " was not found");
+      } else {
+        res.status(200).send(user);
+      }
+    })
+
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 
 //{<-- Firing post req to create a new Proje-->}
 app.post("/new", async (req, res) => {
@@ -73,21 +108,6 @@ app.post("/new", async (req, res) => {
   }
 });
 
-//{<--Get req for searching projectName & clientName-->}
-app.get("/search", async (req, res) => {
-  const { q } = req.query;
-
-  try {
-    let items = await Project.find( {
-      $or: [{ projectname: { $regex: q } }, { clientName: { $regex: q } }],
-    })
-    .populate('companyID');
-    res.send(items);
-  } catch (e) {
-    console.log(e.message);
-  }
-});
-
 //{<--Firing Delete req for an projectid-->}
 app.delete("/:id", async (req, res) => {
   let { id } = req.params;
@@ -109,8 +129,8 @@ app.delete("/:id", async (req, res) => {
 
 //{<-- Firing Patch req for projectID -->}
 app.patch("/:id", async (req, res) => {
-  let {id} = req.params
-console.log('id:', id)
+  let { id } = req.params;
+  console.log("id:", id);
   let updatedData = req.body;
 
   try {
@@ -122,4 +142,5 @@ console.log('id:', id)
     res.status(404).send(error.message);
   }
 });
+
 module.exports = app;

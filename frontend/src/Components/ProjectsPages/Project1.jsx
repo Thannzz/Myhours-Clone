@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Box,
   Button,
@@ -30,60 +31,59 @@ import box from "./Assets/cardboard-box.png";
 import axios from "axios";
 // import sidebar from "../Sidebar";
 import Sidebar from "../Sidebar";
-// Todo : add search functionlity
-// Todo :
+import { useContext } from "react";
+import { AppContext } from "../../context/Appcontext";
 
-{
-  /** API */
-}
 const getProjects = async (url) => {
-  let res = await axios.get(url,{
+  let token = JSON.parse(localStorage.getItem("token"));
+  let res = await axios.get(url, {
     headers: {
-      "token": "6333e76d834c4636928012c6:singla@gmail.com :23104"
-    }
+      token: token,
+    },
   });
-  console.log(res);
+  // console.log("token:", token);
   return res.data;
 };
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
-  const [query, setQuery] = useState("");
   const url = "http://localhost:8080/projects";
 
   const onChange = (e) => {
-    setQuery(e.target.value);
-    console.log(query);
-  };
 
+    // setQuery(e.target.value);
+    // console.log(query);
+    getProjects(`${url}?q=${e.target.value}`).then((res) => setProjects(res));
+
+  };
+  console.log("Porj :", projects);
   {
     /** useEffetcts for component*/
   }
-
+  const onClick = (id)=>{
+    localStorage.setItem("projectId", id)
+  }
   useEffect(() => {
     getProjects(url).then((res) => setProjects(res));
   }, []);
-  useEffect(() => {
-    getProjects(`${url}/search?q=${query}`).then((res) => setProjects(res));
-  }, [query]);
-
-  
 
   return (
     <Flex>
       <Sidebar />
-      <Box m={"30px"} ml="14.5%" w="85%">
+      <Box m={"30px"} w="85%">
         <Flex mb={"30px"}>
           <Text fontSize="4xl" fontWeight="500">
             Projects
           </Text>
           <Spacer />
-          <Button bg={"#3B8FC2"} color="white">
-            <Flex align={"center"}>
-              <AddIcon mr="10px" />
-              Add New Projects
-            </Flex>
-          </Button>
+          <Link to="/projectCreation">
+            <Button bg={"#3B8FC2"} color="white">
+              <Flex align={"center"}>
+                <AddIcon mr="10px" />
+                Add New Projects
+              </Flex>
+            </Button>
+          </Link>
         </Flex>
         <Flex align={"center"}>
           <Input
@@ -130,14 +130,16 @@ export default function Projects() {
             </Thead>
             <Tbody>
               {projects.map((item) => (
-                <Tr>
-                  <Td>{item.projectname}</Td>
+                <Tr key={item._id}>
+                  <Td onClick={()=>onClick(item._id)}>
+                    <Link to="/dashboard/projects/tasks">{item.projectname}</Link>
+                  </Td>
                   <Td>{item.clientName}</Td>
                   <Td>{item.hours}</Td>
                   <Td>{item.billingAmount}</Td>
                   <Td>{item.budgetSpent}</Td>
-                  <Td>{item.createdOn.slice(4,16)}</Td>
-                  <Td>{item.status? "Active":"inActive"}</Td>
+                  <Td>{item.createdOn.slice(4, 16)}</Td>
+                  <Td>{item.status ? "Active" : "inActive"}</Td>
                   <Td>
                     <Flex justifyContent={"space-evenly"}>
                       <Image src={pen} w="16px" />
