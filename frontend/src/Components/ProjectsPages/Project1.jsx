@@ -47,22 +47,20 @@ const getProjects = async (url) => {
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
-  const url = "http://localhost:8080/projects";
+  const url = "https://myhoursclone.herokuapp.com/projects";
 
   const onChange = (e) => {
-
     // setQuery(e.target.value);
     // console.log(query);
     getProjects(`${url}?q=${e.target.value}`).then((res) => setProjects(res));
-
   };
   console.log("Porj :", projects);
   {
     /** useEffetcts for component*/
   }
-  const onClick = (id)=>{
-    localStorage.setItem("projectId", id)
-  }
+  const onClick = (id) => {
+    localStorage.setItem("projectId", id);
+  };
   useEffect(() => {
     getProjects(url).then((res) => setProjects(res));
   }, []);
@@ -131,8 +129,10 @@ export default function Projects() {
             <Tbody>
               {projects.map((item) => (
                 <Tr key={item._id}>
-                  <Td onClick={()=>onClick(item._id)}>
-                    <Link to="/dashboard/projects/tasks">{item.projectname}</Link>
+                  <Td onClick={() => onClick(item._id)}>
+                    <Link to="/dashboard/projects/tasks">
+                      {item.projectname}
+                    </Link>
                   </Td>
                   <Td>{item.clientName}</Td>
                   <Td>{item.hours}</Td>

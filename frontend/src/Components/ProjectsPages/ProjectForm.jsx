@@ -14,7 +14,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ProjectForm() {
-
   let token = JSON.parse(localStorage.getItem("token"));
 
   const initialProject = {
@@ -51,22 +50,17 @@ function ProjectForm() {
   // const setTeam = (e) => {};
 
   const submit = async () => {
-
-    
-
     let res = await axios({
       method: "POST",
       headers: {
         token: token,
       },
-      url: "http://localhost:8080/projects/new",
+      url: "https://myhoursclone.herokuapp.com/projects/new",
       data: project,
     });
 
-
     // console.log(res.data);
     navigate("/dashboard/projects");
-
   };
 
   return (

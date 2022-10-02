@@ -1,25 +1,22 @@
-import React from 'react'
-import Sidebar from './Sidebar'
-import '../styles/Dashboard.css'
-import Track from './Track'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import axios from "axios"
+import React from "react";
+import Sidebar from "./Sidebar";
+import "../styles/Dashboard.css";
+import Track from "./Track";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
-const getUserName = (token)=>{
-  return axios.get(`http://localhost:8080/projects`,{
-    headers:{token:token}
+const getUserName = (token) => {
+  return axios.get(`https://myhoursclone.herokuapp.com/projects`, {
+    headers: { token: token },
   });
-}
+};
 
 export default function Dashboard() {
-  const [userName,setUserName] = useState(null);
+  const [userName, setUserName] = useState(null);
 
-
-
-
-  useEffect(()=>{
-    let token = JSON.parse(localStorage.getItem("token"))
+  useEffect(() => {
+    let token = JSON.parse(localStorage.getItem("token"));
     // console.log("in track page----->",token)
     getUserName(token)
       .then((res) => {
@@ -29,8 +26,7 @@ export default function Dashboard() {
       .catch((err) => {
         console.log(err);
       });
-  },[])
-
+  }, []);
 
   return (
     <div className="dashboard">
