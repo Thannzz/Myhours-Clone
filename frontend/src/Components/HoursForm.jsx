@@ -1,14 +1,11 @@
-import { Box, Divider, Input} from "@chakra-ui/react";
+import { Box, Divider, Input } from "@chakra-ui/react";
 import React from "react";
 import { Select } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { Button } from "@chakra-ui/react";
 
-import {
-  Alert,
-  AlertIcon,
-} from "@chakra-ui/react";
+import { Alert, AlertIcon } from "@chakra-ui/react";
 
 const getProjectsName = (token) => {
   return axios.get(`http://localhost:8080/projects`, {
@@ -22,17 +19,27 @@ const getTaskName = (projectid) => {
   });
 };
 
-const updateHours = async (id, hours, token) => {
+const updateHours = async (id, hours, token, budgetSpent) => {
   let res = await axios({
     method: "PATCH",
     url: `http://localhost:8080/projects/${id}`,
     headers: { token: token },
-    data: { hours: hours  },
+    data: { hours: hours, billingAmount: +budgetSpent * +hours },
   });
   return res;
 };
 
-
+const getProject = async (id, token) => {
+  let res = await axios({
+    method: "GET",
+    url: `http://localhost:8080/projects/${id}`,
+    headers: {
+      token: token,
+    },
+  });
+  // console.log("project:", res.data);
+  return res.data;
+};
 
 export default function HoursForm({ totalBudget, handleHours, i }) {
   const [projectNames, setProjectNames] = useState([]);
@@ -45,7 +52,7 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
     handleHours;
   let [alert, setAlert] = useState(false);
   let [isError, setIsError] = useState(false);
-  let [billAmt,setBillAmt] = useState(0)
+  let [budgetSpent, setBudgetSpent] = useState(0);
 
   let handleGetName = () => {
     let token = JSON.parse(localStorage.getItem("token"));
@@ -53,9 +60,15 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
 
     getProjectsName(token)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setProjectNames(res.data);
-        // setBillAmt()
+        let tempProjects = res.data;
+
+        let oneItem = tempProjects.find((elem, ind) => ind == selectProjectInd);
+
+        let projectid = oneItem._id;
+        // console.log("projectid-->", projectid);
+        setProjectid(projectid);
       })
       .catch((err) => {
         console.log(err);
@@ -63,12 +76,14 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
   };
 
   const handleTaskName = () => {
-
-    let oneItem = projectNames.find((elem, ind) => ind == selectProjectInd);
-
-    let projectid = oneItem._id;
-    
-    setProjectid(projectid);
+    getProject(projectid, token)
+      .then((res) => {
+        // console.log("One project-->", res);
+        setBudgetSpent(res.budgetSpent);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     getTaskName(projectid)
       .then((res) => {
@@ -81,9 +96,9 @@ export default function HoursForm({ totalBudget, handleHours, i }) {
   };
 
   const handleUpdateHours = () => {
-    updateHours(projectid, totalBudget, token)
+    updateHours(projectid, totalBudget, token, budgetSpent)
       .then((res) => {
-
+        // console.log("updated project-->",res.data);
         setAlert(true);
         setTimeout(() => {
           setAlert(false);
