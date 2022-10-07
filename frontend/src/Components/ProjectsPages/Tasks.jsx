@@ -22,7 +22,7 @@ const getProject = async (id) => {
   let token = JSON.parse(localStorage.getItem("token"));
   let res = await axios({
     method: "GET",
-    url: `https://myhoursclone.herokuapp.com/projects/${id}`,
+    url: `http://localhost:8080/projects/${id}`,
     headers: {
       token: token,
     },
@@ -31,7 +31,7 @@ const getProject = async (id) => {
   return res.data;
 };
 const getTasks = async (id) => {
-  let res = await axios.get("https://myhoursclone.herokuapp.com/tasks", {
+  let res = await axios.get("http://localhost:8080/tasks", {
     headers: {
       projectid: id,
     },
@@ -82,7 +82,7 @@ function Tasks() {
       headers: {
         projectid: projectId,
       },
-      url: "https://myhoursclone.herokuapp.com/tasks",
+      url: "http://localhost:8080/tasks",
     });
     setStatus(!status);
     console.log(res.data);
@@ -95,7 +95,7 @@ function Tasks() {
         projectid: projectId,
       },
       data: { status: !status },
-      url: `https://myhoursclone.herokuapp.com/tasks/${id}`,
+      url: `http://localhost:8080/tasks/${id}`,
     });
     setStatus(!status);
     console.log(res);

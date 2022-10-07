@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import axios from "axios";
 
 const getUserName = (token) => {
-  return axios.get(`https://myhoursclone.herokuapp.com/projects`, {
+  return axios.get(`http://localhost:8080/projects`, {
     headers: { token: token },
   });
 };
