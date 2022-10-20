@@ -6,7 +6,7 @@ export const Logins = (data) => async (dispatch) => {
 
   try {
     let response = await axios.post(
-      "http://localhost:8080/company/signin",
+      "https://myhoursclone.herokuapp.com/company/signin",
       data
     );
 
@@ -21,7 +21,7 @@ export const SignUp = (data) => async (dispatch) => {
   // console.log(data);
   try {
     let response = await axios.post(
-      "http://localhost:8080/company/signup",
+      "https://myhoursclone.herokuapp.com/company/signup",
       data
     );
 

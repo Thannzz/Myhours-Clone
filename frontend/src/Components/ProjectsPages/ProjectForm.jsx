@@ -55,7 +55,7 @@ function ProjectForm() {
       headers: {
         token: token,
       },
-      url: "http://localhost:8080/projects/new",
+      url: "https://myhoursclone.herokuapp.com/projects/new",
       data: project,
     });
 

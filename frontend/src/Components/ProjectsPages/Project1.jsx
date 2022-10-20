@@ -47,7 +47,7 @@ const getProjects = async (url) => {
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
-  const url = "http://localhost:8080/projects";
+  const url = "https://myhoursclone.herokuapp.com/projects";
 
   const onChange = (e) => {
     // setQuery(e.target.value);

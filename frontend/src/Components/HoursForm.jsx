@@ -8,13 +8,13 @@ import { Button } from "@chakra-ui/react";
 import { Alert, AlertIcon } from "@chakra-ui/react";
 
 const getProjectsName = (token) => {
-  return axios.get(`http://localhost:8080/projects`, {
+  return axios.get(`https://myhoursclone.herokuapp.com/projects`, {
     headers: { token: token },
   });
 };
 
 const getTaskName = (projectid) => {
-  return axios.get(`http://localhost:8080/tasks`, {
+  return axios.get(`https://myhoursclone.herokuapp.com/tasks`, {
     headers: { projectid: projectid },
   });
 };
@@ -22,7 +22,7 @@ const getTaskName = (projectid) => {
 const updateHours = async (id, hours, token, budgetSpent) => {
   let res = await axios({
     method: "PATCH",
-    url: `http://localhost:8080/projects/${id}`,
+    url: `https://myhoursclone.herokuapp.com/projects/${id}`,
     headers: { token: token },
     data: { hours: hours, billingAmount: +budgetSpent * +hours },
   });
@@ -32,7 +32,7 @@ const updateHours = async (id, hours, token, budgetSpent) => {
 const getProject = async (id, token) => {
   let res = await axios({
     method: "GET",
-    url: `http://localhost:8080/projects/${id}`,
+    url: `https://myhoursclone.herokuapp.com/projects/${id}`,
     headers: {
       token: token,
     },

@@ -25,7 +25,7 @@ import axios from "axios";
 import Sidebar from "../Components/Sidebar";
 
 const getProjects = async (token) => {
-  let res = await axios.get("http://localhost:8080/projects", {
+  let res = await axios.get("https://myhoursclone.herokuapp.com/projects", {
     headers: {
       token: token,
     },
