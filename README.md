@@ -15,9 +15,9 @@ My Hours is a cloud-based time tracking solution best suited for small teams and
 
 ## Myhours Clone
 
-### Home Page
+### Dashboard Page
 
-![](<./screenshots/Screenshot%20(626).png>)
+![](./screenshots/dashboard.png)
 
 ### Signin Page
 
