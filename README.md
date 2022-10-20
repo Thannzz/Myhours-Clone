@@ -16,8 +16,8 @@ My Hours is a cloud-based time tracking solution best suited for small teams and
 ## Myhours Clone
 
 ### Home Page
-Screenshot (67).png
 
+<img src='Screenshot (67).png' />
 <!-- ![](https://github.com/m-sehrawat/Adidas-Website-Clone/blob/main/Adidas%20Clone%20Screen%20Shots/Home%20page.png?raw=true) -->
 
 ### Product Page
