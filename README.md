@@ -1,4 +1,4 @@
-# [Adidas | Original](https://www.adidas.co.in/search)
+# [Myhours | Original](https://myhours.com/)
 
 <table>
 <tr>
@@ -17,54 +17,52 @@ My Hours is a cloud-based time tracking solution best suited for small teams and
 
 ### Home Page
 
-![](./screenshots/Screenshot%20(626).png)
+![](<./screenshots/Screenshot%20(626).png>)
 
-### Product Page
+### Signin Page
 
-![](https://github.com/m-sehrawat/Adidas-Website-Clone/blob/main/Adidas%20Clone%20Screen%20Shots/Products%20Page.png?raw=true)
-
-### Product Description Page
-
-![](https://github.com/m-sehrawat/Adidas-Website-Clone/blob/main/Adidas%20Clone%20Screen%20Shots/Product%20Description%20Page.png?raw=true)
-
-### Checkout Page
-
-![](https://github.com/m-sehrawat/Adidas-Website-Clone/blob/main/Adidas%20Clone%20Screen%20Shots/Checkout%20Page.png?raw=true)
-
-### Shipping Address Page
-
-![](https://github.com/m-sehrawat/Adidas-Website-Clone/blob/main/Adidas%20Clone%20Screen%20Shots/Shipping%20Address%20page.png?raw=true)
-
-### Sign up Page
-
-![](https://github.com/m-sehrawat/Adidas-Website-Clone/blob/main/Adidas%20Clone%20Screen%20Shots/Sign%20Up%20page.png?raw=true)
-
-### Payment Page
-
-![](https://github.com/m-sehrawat/Adidas-Website-Clone/blob/main/Adidas%20Clone%20Screen%20Shots/Payment%20Page.png?raw=true)
+![](./screenshots/signin.png)
 
 ## [Getting Started]
 
-### Execution..
+## Run Locally
 
-Want to run in your local Machine? Great!
+Clone the project
 
-To run, follow these steps:
+```bash
+  git clone https://github.com/Thannzz/Myhours-Clone
+```
 
-- Clone my repository `https://github.com/m-sehrawat/Adidas-Website-Clone`
-- Open that code in your VS code `Project Files/adidas_home_page.html`
-- Open the `adidas_home_page.html` on Live server
-- Then you can Navigate through other pages from Home page like `product_page.html`, `adidas_productDescription.html` etc
+Go to the project directory
+
+```bash
+  cd frontend
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the localhost server
+
+```bash
+  npm start
+```
 
 ## Built with
 
-- HTML 5
-- CSS 3
-- Advance JavaScript (ES6)
+- REACT
+- REDUX
+- CHAKRA UI
+- EXPRESS
+- MONGO DB
 
 ## Creators
 
-- [@Mohit Sehrawat](https://github.com/m-sehrawat/)
-- [@Taher Ahmed](https://github.com/taherahmed14)
-- [@Pabitra Saikia](https://github.com/ipabitrasaikia1)
-- [@Renu Kumari](https://github.com/renurisha)
+- [@Anshul Singla](https://github.com/Anshul-Singla)
+- [@Thanigaivel](https://github.com/Thannzz)
+- [@Abrar Aalam](https://github.com/Abrar2003)
+- [@Onkar Deshmukh](https://github.com/Onkar271998)
+- [@Sukhdev Hansda](https://github.com/imsukhdevhansda)
