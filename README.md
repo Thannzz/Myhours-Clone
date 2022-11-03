@@ -3,7 +3,7 @@
 <table>
 <tr>
 <td>
-We were a team of 5 from the Masai Web-18 batch who worked on cloning the Myhours website as part of our Unit-5 construct week. As a team, we were given a project to clone the Myhours website. Our project demonstrates a basic flow of  project managment app which allows you to track the progress of the project, where you can also restrict the budget spent on the projec, breakdown projects into smaller and simpler tasks and also how much time one spent on each task . (Basically you can track the progress of project and the employess also).
+We were a team of 5 from the Masai Web-18 batch who worked on cloning the Myhours website as part of our Unit-5 construct week. As a team, we were given a project to clone the Myhours website. Our project demonstrates a basic flow of  project managment app which allows you to track the progress of the project, where you can also restrict the budget spent on the project, breakdown projects into smaller and simpler tasks and also how much time one spent on each task . (Basically you can track the progress of project and the employess also).
 </td>
 </tr>
 <tr>
