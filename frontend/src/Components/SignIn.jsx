@@ -15,7 +15,7 @@ import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Logins } from "./auth/auth.action";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AppContext } from "../context/Appcontext";
 function SignIn() {
   const [data, setData] = useState({});
@@ -83,9 +83,11 @@ function SignIn() {
           <Text color="#3B8FC2">Reset Password</Text>
         </Flex>
         <hr />
+        <Link to={"/Signup"}>
         <Text fontSize={"14px"} color="#3B8FC2">
           New to My Hours? Sign up
         </Text>
+        </Link>
       </Box>
     </Container>
   );
